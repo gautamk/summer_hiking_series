@@ -1,0 +1,41 @@
+week,date,season,trail_name,location,distance_miles,elevation_gain_ft,difficulty,drive_time_min,best_start_time,overnight_town,highlight
+1,2026-03-21,spring,Green Lake Loop,Seattle,2.8,50,easy,15,morning,,Ease into the season with cherry blossoms and waterfowl
+2,2026-03-28,spring,Snoqualmie Falls,Snoqualmie,1.4,100,easy,40,anytime,,Iconic 268-foot waterfall at peak spring flow
+3,2026-04-04,spring,Twin Falls,North Bend,2.4,500,easy/moderate,35,early morning,,Spring waterfall at peak flow through mossy forest
+4,2026-04-11,spring,Coal Creek Falls,Issaquah,2.2,475,moderate,25,early morning,,28-foot waterfall best seen after spring rain
+5,2026-04-18,spring,Little Si,North Bend,3.7,1300,moderate,35,early morning,,Snoqualmie Valley views with spring wildflowers
+6,2026-04-25,spring,Rattlesnake Ledge,North Bend,4.0,1160,moderate,40,early morning,,Dramatic lake and Cascade views from the ledge
+7,2026-05-02,spring,Franklin Falls,Snoqualmie Pass,2.0,400,easy,50,mid morning,,Misty 70-foot waterfall through old growth forest
+8,2026-05-09,spring,Poo Poo Point,Issaquah,4.0,1650,moderate,30,early morning,,Paraglider launch with spring wildflowers and ferns
+9,2026-05-16,spring,Teneriffe Falls,North Bend,5.6,1585,moderate,45,early morning,,Full-volume waterfall via 22 switchbacks
+10,2026-05-23,spring,Wallace Falls,Gold Bar,5.6,1300,moderate,60,early morning,,Nine waterfalls including three-tiered main cascade at peak snowmelt
+11,2026-05-30,spring,Lake 22,Granite Falls,5.4,1350,moderate,60,early morning,,First alpine lake of the season with waterfall views
+12,2026-06-06,spring,Lake Serene and Bridal Veil Falls,Stevens Pass,8.2,2000,moderate/hard,70,very early,,Dramatic waterfall and alpine lake combo with Mt Index views
+13,2026-06-13,spring,Heather Lake,Granite Falls,4.4,1204,moderate,70,early morning,,Subalpine lake with spring skunk cabbage blooms
+14,2026-06-20,summer,Snow Lake,Snoqualmie Pass,7.2,1800,moderate/hard,60,very early,,Most popular alpine lake in Washington now snow-free
+15,2026-06-27,summer,Annette Lake,Snoqualmie Pass,7.5,1800,moderate/hard,60,early morning,,Alpine lake with wildflower meadows and waterfalls
+16,2026-07-04,summer,Naches Peak Loop,Mt Rainier / Chinook Pass,3.5,600,easy,150,early morning,Enumclaw,Holiday weekend alpine loop with Mt Rainier views
+17,2026-07-11,summer,Melakwa Lake,Snoqualmie Pass,8.5,2700,hard,60,very early,,Teal alpine lake past Denny Creek waterslide
+18,2026-07-18,summer,Skyline Trail Loop,Mt Rainier / Paradise,5.5,1600,moderate,150,very early,Ashford,Peak wildflower meadows and glacier views at Paradise
+19,2026-07-25,summer,Yellow Aster Butte,Mt Baker Wilderness,7.5,2550,hard,120,very early,Bellingham,360-degree views with peak lupine and paintbrush meadows
+20,2026-08-01,summer,Spray Park,Mt Rainier / Mowich Lake,8.0,1700,moderate/hard,120,early morning,Ashford,Alpine meadow waterfalls on the quiet side of Rainier
+21,2026-08-08,summer,Colchuck Lake,Alpine Lakes / Leavenworth,8.0,2280,moderate/hard,150,very early,Leavenworth,Gateway to the Enchantments with turquoise water
+22,2026-08-15,summer,Lake Ann,Mt Baker Scenic Highway,8.7,2047,hard,135,very early,Bellingham,Close-up views of Mt Shuksan with alpine meadow blooms
+23,2026-08-22,summer,Blue Lake,North Cascades / Hwy 20,4.4,1050,moderate,150,early morning,Winthrop,Turquoise alpine lake under granite peaks
+24,2026-08-29,summer,Mount Pilchuck,Mountain Loop Highway,5.4,2200,moderate/hard,60,early morning,,Historic fire lookout with Baker and Rainier views
+25,2026-09-05,summer,Glacier Basin,Mt Rainier / Sunrise,7.0,1700,moderate,150,early morning,Enumclaw,Labor Day weekend at Emmons Glacier viewpoint
+26,2026-09-12,summer,West Tiger 3,Issaquah,6.2,2000,moderate,35,early morning,,Panoramic Seattle and Rainier views from Tiger Mountain
+27,2026-09-19,summer,Mirror Lake,Snoqualmie Pass,3.0,700,moderate,55,early morning,,Quiet alpine lake as summer winds down
+28,2026-09-26,fall,Cutthroat Lake,North Cascades / Hwy 20,3.8,400,easy/moderate,150,early morning,Winthrop,Easiest larch hike in Washington at peak gold
+29,2026-10-03,fall,Lake Ingalls,Alpine Lakes / Teanaway,9.0,2500,hard,170,very early,Leavenworth,Iconic larch basin with Mt Stuart views
+30,2026-10-10,fall,Colchuck Lake,Alpine Lakes / Leavenworth,8.0,2280,moderate/hard,150,very early,Leavenworth,Dragontail Peak framed by golden larches
+31,2026-10-17,fall,Blue Lake,North Cascades / Hwy 20,4.4,1050,moderate,180,early morning,Winthrop,Golden larch forest reflected in crystal blue water
+32,2026-10-24,fall,Snow Lake,Snoqualmie Pass,7.2,1800,moderate/hard,50,early morning,,Vine maple reds and berry bush color along the trail
+33,2026-10-31,fall,Rattlesnake Ledge,North Bend,4.0,1160,moderate,40,early morning,,Fall foliage over Cedar River Watershed
+34,2026-11-07,fall,Wallace Falls,Gold Bar,5.6,1300,moderate,75,early morning,,Fall rains bring the nine waterfalls to full power
+35,2026-11-14,fall,Twin Falls,North Bend,2.4,500,easy/moderate,35,early morning,,Moody autumn forest with peak waterfall flow
+36,2026-11-21,fall,Snoqualmie Falls,Snoqualmie,1.4,100,easy,40,anytime,,Thanksgiving week stroll at the thundering falls
+37,2026-11-28,fall,Coal Creek Falls,Issaquah,2.2,475,moderate,25,early morning,,Post-rain waterfall in mushroom-rich forest
+38,2026-12-05,fall,Goat Lake,Mountain Loop Highway,10.4,1400,moderate/hard,75,early morning,,Late fall color along Elliot Creek valley
+39,2026-12-12,fall,Franklin Falls,Snoqualmie Pass,2.0,400,easy,50,mid morning,,Winter waterfall through snow-dusted forest
+40,2026-12-19,fall,Rattlesnake Lake,North Bend,1.3,32,easy,40,morning,,Winter solstice eve lakeside walk to close the season

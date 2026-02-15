@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Hiking Series 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        select, input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.moderate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .links-cell {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .wta-link {
+            background: #d4e4f7;
+            color: #1c5c8f;
+        }
+
+        .wta-link:hover {
+            background: #a8d0f0;
+        }
+
+        .alltrails-link {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .alltrails-link:hover {
+            background: #c8e6c9;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .calendar-item {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+
+        .calendar-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .calendar-item-date {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .calendar-item-trail {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .calendar-item-location {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .calendar-item-distance {
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .no-results h2 {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .control-group {
+                width: 100%;
+            }
+
+            select, input[type="text"], button {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .calendar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏔️ Summer Hiking Series 2026</h1>
+            <p>52 weeks of amazing Washington hiking adventures</p>
+        </header>
+
+        <div class="content">
+            <!-- Stats Section -->
+            <div class="stats" id="stats-container"></div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="control-group">
+                    <label for="seasonFilter">Season:</label>
+                    <select id="seasonFilter">
+                        <option value="">All Seasons</option>
+                        <option value="spring">Spring</option>
+                        <option value="summer">Summer</option>
+                        <option value="fall">Fall</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="difficultyFilter">Difficulty:</label>
+                    <select id="difficultyFilter">
+                        <option value="">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="searchInput">Search Trail:</label>
+                    <input type="text" id="searchInput" placeholder="Trail name or location...">
+                </div>
+
+                <button onclick="resetFilters()">Reset Filters</button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('table')">Table View</button>
+                <button class="tab-button" onclick="switchTab('calendar')">Calendar View</button>
+            </div>
+
+            <!-- Table Tab -->
+            <div id="table" class="tab-content active">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Date</th>
+                            <th>Trail Name</th>
+                            <th>Location</th>
+                            <th>Distance</th>
+                            <th>Elevation</th>
+                            <th>Difficulty</th>
+                            <th>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Calendar Tab -->
+            <div id="calendar" class="tab-content">
+                <div class="calendar" id="calendarContainer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Embedded master schedule data
+        const masterSchedule = [
+            {week: 1, date: '2026-03-21', season: 'spring', trail_name: 'Green Lake Loop', location: 'Seattle', distance_miles: 2.8, elevation_gain_ft: 50, difficulty: 'easy', drive_time_min: 15, best_start_time: 'morning', overnight_town: '', highlight: 'Ease into the season with cherry blossoms and waterfowl'},
+            {week: 2, date: '2026-03-28', season: 'spring', trail_name: 'Snoqualmie Falls', location: 'Snoqualmie', distance_miles: 1.4, elevation_gain_ft: 100, difficulty: 'easy', drive_time_min: 40, best_start_time: 'anytime', overnight_town: '', highlight: 'Iconic 268-foot waterfall at peak spring flow'},
+            {week: 3, date: '2026-04-04', season: 'spring', trail_name: 'Twin Falls', location: 'North Bend', distance_miles: 2.4, elevation_gain_ft: 500, difficulty: 'easy/moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Spring waterfall at peak flow through mossy forest'},
+            {week: 4, date: '2026-04-11', season: 'spring', trail_name: 'Coal Creek Falls', location: 'Issaquah', distance_miles: 2.2, elevation_gain_ft: 475, difficulty: 'moderate', drive_time_min: 25, best_start_time: 'early morning', overnight_town: '', highlight: '28-foot waterfall best seen after spring rain'},
+            {week: 5, date: '2026-04-18', season: 'spring', trail_name: 'Little Si', location: 'North Bend', distance_miles: 3.7, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Snoqualmie Valley views with spring wildflowers'},
+            {week: 6, date: '2026-04-25', season: 'spring', trail_name: 'Rattlesnake Ledge', location: 'North Bend', distance_miles: 4.0, elevation_gain_ft: 1160, difficulty: 'moderate', drive_time_min: 40, best_start_time: 'early morning', overnight_town: '', highlight: 'Dramatic lake and Cascade views from the ledge'},
+            {week: 7, date: '2026-05-02', season: 'spring', trail_name: 'Franklin Falls', location: 'Snoqualmie Pass', distance_miles: 2.0, elevation_gain_ft: 400, difficulty: 'easy', drive_time_min: 50, best_start_time: 'mid morning', overnight_town: '', highlight: 'Misty 70-foot waterfall through old growth forest'},
+            {week: 8, date: '2026-05-09', season: 'spring', trail_name: 'Poo Poo Point', location: 'Issaquah', distance_miles: 4.0, elevation_gain_ft: 1650, difficulty: 'moderate', drive_time_min: 30, best_start_time: 'early morning', overnight_town: '', highlight: 'Paraglider launch with spring wildflowers and ferns'},
+            {week: 9, date: '2026-05-16', season: 'spring', trail_name: 'Teneriffe Falls', location: 'North Bend', distance_miles: 5.6, elevation_gain_ft: 1585, difficulty: 'moderate', drive_time_min: 45, best_start_time: 'early morning', overnight_town: '', highlight: 'Full-volume waterfall via 22 switchbacks'},
+            {week: 10, date: '2026-05-23', season: 'spring', trail_name: 'Wallace Falls', location: 'Gold Bar', distance_miles: 5.6, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Nine waterfalls including three-tiered main cascade at peak snowmelt'},
+            {week: 11, date: '2026-05-30', season: 'spring', trail_name: 'Lake 22', location: 'Granite Falls', distance_miles: 5.4, elevation_gain_ft: 1350, difficulty: 'moderate', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'First alpine lake of the season with waterfall views'},
+            {week: 12, date: '2026-06-06', season: 'spring', trail_name: 'Lake Serene and Bridal Veil Falls', location: 'Stevens Pass', distance_miles: 8.2, elevation_gain_ft: 2000, difficulty: 'moderate/hard', drive_time_min: 70, best_start_time: 'very early', overnight_town: '', highlight: 'Dramatic waterfall and alpine lake combo with Mt Index views'},
+            {week: 13, date: '2026-06-13', season: 'spring', trail_name: 'Heather Lake', location: 'Granite Falls', distance_miles: 4.4, elevation_gain_ft: 1204, difficulty: 'moderate', drive_time_min: 70, best_start_time: 'early morning', overnight_town: '', highlight: 'Subalpine lake with spring skunk cabbage blooms'},
+            {week: 14, date: '2026-06-20', season: 'summer', trail_name: 'Snow Lake', location: 'Snoqualmie Pass', distance_miles: 7.2, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'very early', overnight_town: '', highlight: 'Most popular alpine lake in Washington now snow-free'},
+            {week: 15, date: '2026-06-27', season: 'summer', trail_name: 'Annette Lake', location: 'Snoqualmie Pass', distance_miles: 7.5, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Alpine lake with wildflower meadows and waterfalls'},
+            {week: 16, date: '2026-07-04', season: 'summer', trail_name: 'Naches Peak Loop', location: 'Mt Rainier / Chinook Pass', distance_miles: 3.5, elevation_gain_ft: 600, difficulty: 'easy', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Enumclaw', highlight: 'Holiday weekend alpine loop with Mt Rainier views'},
+            {week: 17, date: '2026-07-11', season: 'summer', trail_name: 'Melakwa Lake', location: 'Snoqualmie Pass', distance_miles: 8.5, elevation_gain_ft: 2700, difficulty: 'hard', drive_time_min: 60, best_start_time: 'very early', overnight_town: '', highlight: 'Teal alpine lake past Denny Creek waterslide'},
+            {week: 18, date: '2026-07-18', season: 'summer', trail_name: 'Skyline Trail Loop', location: 'Mt Rainier / Paradise', distance_miles: 5.5, elevation_gain_ft: 1600, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Ashford', highlight: 'Peak wildflower meadows and glacier views at Paradise'},
+            {week: 19, date: '2026-07-25', season: 'summer', trail_name: 'Yellow Aster Butte', location: 'Mt Baker Wilderness', distance_miles: 7.5, elevation_gain_ft: 2550, difficulty: 'hard', drive_time_min: 120, best_start_time: 'very early', overnight_town: 'Bellingham', highlight: '360-degree views with peak lupine and paintbrush meadows'},
+            {week: 20, date: '2026-08-01', season: 'summer', trail_name: 'Spray Park', location: 'Mt Rainier / Mowich Lake', distance_miles: 8.0, elevation_gain_ft: 1700, difficulty: 'moderate/hard', drive_time_min: 120, best_start_time: 'early morning', overnight_town: 'Ashford', highlight: 'Alpine meadow waterfalls on the quiet side of Rainier'},
+            {week: 21, date: '2026-08-08', season: 'summer', trail_name: 'Colchuck Lake', location: 'Alpine Lakes / Leavenworth', distance_miles: 8.0, elevation_gain_ft: 2280, difficulty: 'moderate/hard', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Gateway to the Enchantments with turquoise water'},
+            {week: 22, date: '2026-08-15', season: 'summer', trail_name: 'Lake Ann', location: 'Mt Baker Scenic Highway', distance_miles: 8.7, elevation_gain_ft: 2047, difficulty: 'hard', drive_time_min: 135, best_start_time: 'very early', overnight_town: 'Bellingham', highlight: 'Close-up views of Mt Shuksan with alpine meadow blooms'},
+            {week: 23, date: '2026-08-22', season: 'summer', trail_name: 'Blue Lake', location: 'North Cascades / Hwy 20', distance_miles: 4.4, elevation_gain_ft: 1050, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Turquoise alpine lake under granite peaks'},
+            {week: 24, date: '2026-08-29', season: 'summer', trail_name: 'Mount Pilchuck', location: 'Mountain Loop Highway', distance_miles: 5.4, elevation_gain_ft: 2200, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Historic fire lookout with Baker and Rainier views'},
+            {week: 25, date: '2026-09-05', season: 'summer', trail_name: 'Glacier Basin', location: 'Mt Rainier / Sunrise', distance_miles: 7.0, elevation_gain_ft: 1700, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Enumclaw', highlight: 'Labor Day weekend at Emmons Glacier viewpoint'},
+            {week: 26, date: '2026-09-12', season: 'summer', trail_name: 'West Tiger 3', location: 'Issaquah', distance_miles: 6.2, elevation_gain_ft: 2000, difficulty: 'moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Panoramic Seattle and Rainier views from Tiger Mountain'},
+            {week: 27, date: '2026-09-19', season: 'summer', trail_name: 'Mirror Lake', location: 'Snoqualmie Pass', distance_miles: 3.0, elevation_gain_ft: 700, difficulty: 'moderate', drive_time_min: 55, best_start_time: 'early morning', overnight_town: '', highlight: 'Quiet alpine lake as summer winds down'},
+            {week: 28, date: '2026-09-26', season: 'fall', trail_name: 'Cutthroat Lake', location: 'North Cascades / Hwy 20', distance_miles: 3.8, elevation_gain_ft: 400, difficulty: 'easy/moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Easiest larch hike in Washington at peak gold'},
+            {week: 29, date: '2026-10-03', season: 'fall', trail_name: 'Lake Ingalls', location: 'Alpine Lakes / Teanaway', distance_miles: 9.0, elevation_gain_ft: 2500, difficulty: 'hard', drive_time_min: 170, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Iconic larch basin with Mt Stuart views'},
+            {week: 30, date: '2026-10-10', season: 'fall', trail_name: 'Colchuck Lake', location: 'Alpine Lakes / Leavenworth', distance_miles: 8.0, elevation_gain_ft: 2280, difficulty: 'moderate/hard', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Dragontail Peak framed by golden larches'},
+            {week: 31, date: '2026-10-17', season: 'fall', trail_name: 'Blue Lake', location: 'North Cascades / Hwy 20', distance_miles: 4.4, elevation_gain_ft: 1050, difficulty: 'moderate', drive_time_min: 180, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Golden larch forest reflected in crystal blue water'},
+            {week: 32, date: '2026-10-24', season: 'fall', trail_name: 'Snow Lake', location: 'Snoqualmie Pass', distance_miles: 7.2, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 50, best_start_time: 'early morning', overnight_town: '', highlight: 'Vine maple reds and berry bush color along the trail'},
+            {week: 33, date: '2026-10-31', season: 'fall', trail_name: 'Rattlesnake Ledge', location: 'North Bend', distance_miles: 4.0, elevation_gain_ft: 1160, difficulty: 'moderate', drive_time_min: 40, best_start_time: 'early morning', overnight_town: '', highlight: 'Fall foliage over Cedar River Watershed'},
+            {week: 34, date: '2026-11-07', season: 'fall', trail_name: 'Wallace Falls', location: 'Gold Bar', distance_miles: 5.6, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 75, best_start_time: 'early morning', overnight_town: '', highlight: 'Fall rains bring the nine waterfalls to full power'},
+            {week: 35, date: '2026-11-14', season: 'fall', trail_name: 'Twin Falls', location: 'North Bend', distance_miles: 2.4, elevation_gain_ft: 500, difficulty: 'easy/moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Moody autumn forest with peak waterfall flow'},
+            {week: 36, date: '2026-11-21', season: 'fall', trail_name: 'Snoqualmie Falls', location: 'Snoqualmie', distance_miles: 1.4, elevation_gain_ft: 100, difficulty: 'easy', drive_time_min: 40, best_start_time: 'anytime', overnight_town: '', highlight: 'Thanksgiving week stroll at the thundering falls'},
+            {week: 37, date: '2026-11-28', season: 'fall', trail_name: 'Coal Creek Falls', location: 'Issaquah', distance_miles: 2.2, elevation_gain_ft: 475, difficulty: 'moderate', drive_time_min: 25, best_start_time: 'early morning', overnight_town: '', highlight: 'Post-rain waterfall in mushroom-rich forest'},
+            {week: 38, date: '2026-12-05', season: 'fall', trail_name: 'Goat Lake', location: 'Mountain Loop Highway', distance_miles: 10.4, elevation_gain_ft: 1400, difficulty: 'moderate/hard', drive_time_min: 75, best_start_time: 'early morning', overnight_town: '', highlight: 'Late fall color along Elliot Creek valley'},
+            {week: 39, date: '2026-12-12', season: 'fall', trail_name: 'Franklin Falls', location: 'Snoqualmie Pass', distance_miles: 2.0, elevation_gain_ft: 400, difficulty: 'easy', drive_time_min: 50, best_start_time: 'mid morning', overnight_town: '', highlight: 'Winter waterfall through snow-dusted forest'},
+            {week: 40, date: '2026-12-19', season: 'fall', trail_name: 'Rattlesnake Lake', location: 'North Bend', distance_miles: 1.3, elevation_gain_ft: 32, difficulty: 'easy', drive_time_min: 40, best_start_time: 'morning', overnight_town: '', highlight: 'Winter solstice eve lakeside walk to close the season'}
+        ];
+
+        // Trail URL mapping from seasonal CSVs
+        const trailUrls = {
+            'Green Lake Loop': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/green-lake-loop-trail'},
+            'Snoqualmie Falls': {wta: 'https://www.wta.org/go-hiking/hikes/snoqualmie-falls', alltrails: ''},
+            'Twin Falls': {wta: 'https://www.wta.org/go-hiking/hikes/twin-falls-state-park', alltrails: 'https://www.alltrails.com/trail/us/washington/twin-falls-trail'},
+            'Coal Creek Falls': {wta: 'https://www.wta.org/go-hiking/hikes/coal-creek-falls', alltrails: ''},
+            'Little Si': {wta: 'https://www.wta.org/go-hiking/hikes/little-si', alltrails: 'https://www.alltrails.com/trail/us/washington/little-si-trail'},
+            'Rattlesnake Ledge': {wta: 'https://www.wta.org/go-hiking/hikes/rattlesnake-ledge', alltrails: 'https://www.alltrails.com/trail/us/washington/rattlesnake-ledge'},
+            'Franklin Falls': {wta: 'https://www.wta.org/go-hiking/hikes/franklin-falls', alltrails: ''},
+            'Poo Poo Point': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/chirico-trail-to-poo-poo-point--2'},
+            'Teneriffe Falls': {wta: 'https://www.wta.org/go-hiking/hikes/teneriffe-falls', alltrails: ''},
+            'Wallace Falls': {wta: 'https://www.wta.org/go-hiking/hikes/wallace-falls', alltrails: ''},
+            'Lake 22': {wta: 'https://www.wta.org/go-hiking/hikes/lake-twenty-two', alltrails: 'https://www.alltrails.com/trail/us/washington/lake-22-trail'},
+            'Lake Serene and Bridal Veil Falls': {wta: 'https://www.wta.org/go-hiking/hikes/lake-serene', alltrails: 'https://www.alltrails.com/trail/us/washington/bridal-veil-falls-and-lake-serene'},
+            'Heather Lake': {wta: 'https://www.wta.org/go-hiking/hikes/heather-lake-1', alltrails: ''},
+            'Snow Lake': {wta: 'https://www.wta.org/go-hiking/hikes/snow-lake-1', alltrails: 'https://www.alltrails.com/trail/us/washington/snow-lake-trail'},
+            'Annette Lake': {wta: 'https://www.wta.org/go-hiking/hikes/annette-lake', alltrails: ''},
+            'Naches Peak Loop': {wta: 'https://www.wta.org/go-hiking/hikes/naches-peak', alltrails: ''},
+            'Melakwa Lake': {wta: 'https://www.wta.org/go-hiking/hikes/melakwa-lake', alltrails: ''},
+            'Skyline Trail Loop': {wta: 'https://www.wta.org/go-hiking/hikes/skyline-trail', alltrails: ''},
+            'Yellow Aster Butte': {wta: 'https://www.wta.org/go-hiking/hikes/yellow-aster-butte', alltrails: ''},
+            'Spray Park': {wta: 'https://www.wta.org/go-hiking/hikes/spray-park', alltrails: ''},
+            'Colchuck Lake': {wta: 'https://www.wta.org/go-hiking/hikes/colchuck-lake', alltrails: 'https://www.alltrails.com/trail/us/washington/colchuck-lake-trail'},
+            'Lake Ann': {wta: 'https://www.wta.org/go-hiking/hikes/lake-ann', alltrails: ''},
+            'Blue Lake': {wta: 'https://www.wta.org/go-hiking/hikes/blue-lake', alltrails: ''},
+            'Mount Pilchuck': {wta: 'https://www.wta.org/go-hiking/hikes/mount-pilchuck', alltrails: 'https://www.alltrails.com/trail/us/washington/mount-pilchuck-trail'},
+            'Glacier Basin': {wta: 'https://www.wta.org/go-hiking/hikes/glacier-basin', alltrails: ''},
+            'West Tiger 3': {wta: 'https://www.wta.org/go-hiking/hikes/west-tiger-3', alltrails: ''},
+            'Mirror Lake': {wta: 'https://www.wta.org/go-hiking/hikes/mirror-lake-and-cottonwood-lakes', alltrails: ''},
+            'Cutthroat Lake': {wta: 'https://www.wta.org/go-hiking/hikes/cutthroat-lake', alltrails: ''},
+            'Lake Ingalls': {wta: 'https://www.wta.org/go-hiking/hikes/lake-ingalls', alltrails: 'https://www.alltrails.com/trail/us/washington/lake-ingalls'},
+            'Goat Lake': {wta: 'https://www.wta.org/go-hiking/hikes/goat-lake', alltrails: 'https://www.alltrails.com/trail/us/washington/goat-lake-trail'},
+            'Rattlesnake Lake': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/rattlesnake-lake-trail'}
+        };
+
+        let filteredData = [...masterSchedule];
+
+        function getMainDifficulty(difficulty) {
+            if (difficulty.includes('hard')) return 'hard';
+            if (difficulty.includes('moderate')) return 'moderate';
+            return 'easy';
+        }
+
+        function formatDifficulty(difficulty) {
+            const main = getMainDifficulty(difficulty);
+            return `<span class="difficulty ${main}">${difficulty}</span>`;
+        }
+
+        function getLinksHtml(trailName) {
+            const urls = trailUrls[trailName] || {wta: '', alltrails: ''};
+            let html = '<div class="links-cell">';
+
+            if (urls.wta) {
+                html += `<a href="${urls.wta}" target="_blank" rel="noopener noreferrer" class="link-btn wta-link">WTA</a>`;
+            }
+            if (urls.alltrails) {
+                html += `<a href="${urls.alltrails}" target="_blank" rel="noopener noreferrer" class="link-btn alltrails-link">AllTrails</a>`;
+            }
+
+            if (!urls.wta && !urls.alltrails) {
+                html += '<span style="color: #999; font-size: 0.85em;">No links</span>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function updateStats() {
+            const seasons = {};
+            const difficulties = {};
+            let totalDistance = 0;
+            let totalElevation = 0;
+
+            filteredData.forEach(hike => {
+                seasons[hike.season] = (seasons[hike.season] || 0) + 1;
+                const mainDiff = getMainDifficulty(hike.difficulty);
+                difficulties[mainDiff] = (difficulties[mainDiff] || 0) + 1;
+                totalDistance += hike.distance_miles;
+                totalElevation += hike.elevation_gain_ft;
+            });
+
+            const statsHtml = `
+                <div class="stat-card">
+                    <h3>${filteredData.length}</h3>
+                    <p>Total Hikes</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${totalDistance.toFixed(1)}</h3>
+                    <p>Total Miles</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${(totalElevation / 1000).toFixed(0)}K</h3>
+                    <p>Total Elevation (ft)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${(totalDistance / filteredData.length).toFixed(1)}</h3>
+                    <p>Avg Miles per Hike</p>
+                </div>
+            `;
+
+            document.getElementById('stats-container').innerHTML = statsHtml;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No hikes match your filters</td></tr>';
+                return;
+            }
+
+            filteredData.forEach(hike => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>Week ${hike.week}</strong></td>
+                    <td>${new Date(hike.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</td>
+                    <td><strong>${hike.trail_name}</strong></td>
+                    <td>${hike.location}</td>
+                    <td>${hike.distance_miles} mi</td>
+                    <td>${hike.elevation_gain_ft.toLocaleString()} ft</td>
+                    <td>${formatDifficulty(hike.difficulty)}</td>
+                    <td>${getLinksHtml(hike.trail_name)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderCalendar() {
+            const container = document.getElementById('calendarContainer');
+            container.innerHTML = '';
+
+            if (filteredData.length === 0) {
+                container.innerHTML = '<div class="no-results"><h2>No hikes match your filters</h2></div>';
+                return;
+            }
+
+            filteredData.forEach(hike => {
+                const date = new Date(hike.date);
+                const dateStr = date.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+
+                const item = document.createElement('div');
+                item.className = 'calendar-item';
+                item.innerHTML = `
+                    <div class="calendar-item-date">Week ${hike.week} • ${dateStr}</div>
+                    <div class="calendar-item-trail">${hike.trail_name}</div>
+                    <div class="calendar-item-location">${hike.location}</div>
+                    <div class="calendar-item-distance">${hike.distance_miles} mi • ${hike.elevation_gain_ft.toLocaleString()} ft</div>
+                    <div style="margin-top: 10px;">${getLinksHtml(hike.trail_name)}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function applyFilters() {
+            const season = document.getElementById('seasonFilter').value;
+            const difficulty = document.getElementById('difficultyFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredData = masterSchedule.filter(hike => {
+                const matchesSeason = !season || hike.season === season;
+                const matchesDifficulty = !difficulty || getMainDifficulty(hike.difficulty) === difficulty;
+                const matchesSearch = !search ||
+                    hike.trail_name.toLowerCase().includes(search) ||
+                    hike.location.toLowerCase().includes(search);
+
+                return matchesSeason && matchesDifficulty && matchesSearch;
+            });
+
+            updateStats();
+            renderTable();
+            renderCalendar();
+        }
+
+        function resetFilters() {
+            document.getElementById('seasonFilter').value = '';
+            document.getElementById('difficultyFilter').value = '';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Initialize
+        document.getElementById('seasonFilter').addEventListener('change', applyFilters);
+        document.getElementById('difficultyFilter').addEventListener('change', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Initial render
+        applyFilters();
+    </script>
+</body>
+</html>

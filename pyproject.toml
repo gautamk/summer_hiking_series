@@ -1,0 +1,9 @@
+[project]
+name = "summer-hiking-series"
+version = "0.1.0"
+description = "Weekend day hiking planner for the Seattle metro area"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "playwright>=1.58.0",
+]

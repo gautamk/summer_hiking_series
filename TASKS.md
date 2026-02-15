@@ -6,11 +6,11 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ## Phase 1 — Project Skeleton
 
-- [ ] Create directory structure (`scrapers/`, `db/`, `db/migrations/`, `data/raw/`, `data/processed/`, `ui/`, `ui/templates/`, `ui/dist/`)
-- [ ] Initialise `pyproject.toml` with `uv init` and add initial deps: `playwright`
-- [ ] Run `uv run playwright install` to download browser binaries
-- [ ] Add `.gitignore` entries for `hiking.db`, `data/raw/`, `ui/dist/`, `__pycache__/`, `.venv/`
-- [ ] Verify all scripts can be invoked with `uv run <script>`
+- [x] Create directory structure (`scrapers/`, `db/`, `db/migrations/`, `data/raw/`, `data/processed/`, `ui/`, `ui/templates/`, `ui/dist/`)
+- [x] Initialise `pyproject.toml` with `uv init` and add initial deps: `playwright`
+- [x] Run `uv run playwright install` to download browser binaries
+- [x] Add `.gitignore` entries for `hiking.db`, `data/raw/`, `ui/dist/`, `__pycache__/`, `.venv/`
+- [x] Verify all scripts can be invoked with `uv run <script>`
 
 ---
 

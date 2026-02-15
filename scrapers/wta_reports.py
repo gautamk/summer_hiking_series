@@ -29,7 +29,7 @@ from playwright.async_api import Page, async_playwright
 
 from scrapers.utils import csv_path, new_context, pagination_delay, polite_delay, scraped_at, verify_auth, write_csv
 
-DEFAULT_DAYS = 60
+DEFAULT_DAYS = 90
 
 
 # ---------------------------------------------------------------------------
@@ -152,9 +152,9 @@ async def scrape_reports_for_trail(
         if past_cutoff:
             break  # all remaining pages are older than cutoff
 
-        # Pagination: "Next N items" link is inside li.next inside nav.pagination
+        # Pagination: nav.pagination is a sibling of #trip-reports inside .js-tab-target
         # These links go to @@related_tripreport_listing?b_start:int=N
-        next_link = page.locator("#reports_target nav.pagination li.next a")
+        next_link = page.locator("nav.pagination li.next a")
         if not await next_link.count():
             break  # last page
 

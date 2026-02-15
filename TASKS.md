@@ -14,11 +14,48 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ---
 
-## Phase 2 — DB Module
+## Phase 2 — Scrapers
 
+> Scrape real data first so the DB schema is grounded in actual field names and types.
+
+### 2a. Scraper Shared Utilities
+- [ ] Write `scrapers/utils.py` with shared helpers:
+  - CSV writer with consistent quoting and encoding
+  - Playwright browser/context setup (shared async context, sensible defaults)
+  - Polite crawl delays between page loads
+  - `scraped_at` timestamp injection
+
+### 2b. WTA Hike Info Scraper
+- [ ] Write `scrapers/wta.py` to scrape trail metadata from WTA
+  - Output: `data/raw/wta_hikes_<date>.csv`
+  - Capture all fields WTA exposes; do not pre-filter — schema is derived from output
+- [ ] Handle rate limiting and polite crawl delays
+- [ ] Add `--trail-url` flag for single-trail scrape during development
+- [ ] Produce at least one real CSV output file in `data/raw/` before proceeding to Phase 3
+
+### 2c. WTA Trip Report Scraper
+- [ ] Write `scrapers/wta_reports.py` to scrape recent trip reports per trail
+  - Output: `data/raw/wta_reports_<date>.csv`
+  - Capture all fields WTA exposes; do not pre-filter — schema is derived from output
+- [ ] Limit to reports from the last 60 days by default (`--days` flag to override)
+- [ ] Produce at least one real CSV output file in `data/raw/` before proceeding to Phase 3
+
+---
+
+## Phase 3 — DB Schema (derived from scraped CSVs)
+
+> Design the schema after inspecting real scraper output — not before.
+
+- [ ] Inspect `data/raw/` CSVs and document actual field names, types, and sample values
 - [ ] Design and write initial SQL schema (`db/migrations/001_initial.sql`)
   - Tables: `hikes`, `trip_reports`, `schedule`
-  - Include `source`, `scraped_at`, `updated_at` columns on all tables
+  - Column names and types based on actual scraped data
+  - Include `source`, `scraped_at`, `updated_at` traceability columns
+
+---
+
+## Phase 4 — DB Module
+
 - [ ] Write `db/manage.py` with subcommands:
   - `migrate` — apply pending migration files in order
   - `import <csv_file>` — import a CSV into the appropriate table
@@ -31,31 +68,7 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ---
 
-## Phase 3 — Scrapers
-
-### 3a. WTA Hike Info Scraper
-- [ ] Write `scrapers/wta.py` to scrape trail metadata from WTA
-  - Output: `data/raw/wta_hikes_<date>.csv`
-  - Fields: trail_name, location, distance_miles, elevation_gain_ft, difficulty, season_window, required_pass, highlight, wta_url
-- [ ] Handle rate limiting and polite crawl delays
-- [ ] Add `--trail-url` flag for single-trail scrape during development
-
-### 3b. WTA Trip Report Scraper
-- [ ] Write `scrapers/wta_reports.py` to scrape recent trip reports per trail
-  - Output: `data/raw/wta_reports_<date>.csv`
-  - Fields: hike_id (matched by wta_url), report_date, conditions, snow_level, author, text_summary
-- [ ] Limit to reports from the last 60 days by default (`--days` flag to override)
-
-### 3c. Scraper Shared Utilities
-- [ ] Write `scrapers/utils.py` with shared helpers:
-  - CSV writer with consistent quoting and encoding
-  - Playwright browser/context setup (shared async context, sensible defaults)
-  - Polite crawl delays between page loads
-  - `scraped_at` timestamp injection
-
----
-
-## Phase 4 — UI Module
+## Phase 5 — UI Module
 
 - [ ] Write `ui/build.py` to generate static HTML from `hiking.db`
   - Reads all hikes and their latest trip reports
@@ -71,7 +84,7 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ---
 
-## Phase 5 — Migration from Current Data
+## Phase 6 — Migration from Current Data
 
 - [ ] Convert existing CSVs in `2026/data/` to new schema format
   - Add `source`, `scraped_at` columns (backfill with `manual` / today's date)
@@ -81,7 +94,7 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ---
 
-## Phase 6 — Housekeeping
+## Phase 7 — Housekeeping
 
 - [ ] Update `README.md` to reflect new architecture
 - [ ] Document how to run each module end-to-end using `uv run`

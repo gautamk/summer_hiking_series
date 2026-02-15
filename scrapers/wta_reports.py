@@ -27,7 +27,7 @@ from typing import Any
 
 from playwright.async_api import Page, async_playwright
 
-from scrapers.utils import csv_path, new_context, polite_delay, scraped_at, verify_auth, write_csv
+from scrapers.utils import csv_path, new_context, pagination_delay, polite_delay, scraped_at, verify_auth, write_csv
 
 DEFAULT_DAYS = 60
 
@@ -40,6 +40,29 @@ def _cutoff_date(days: int) -> datetime:
     return datetime.now(timezone.utc) - timedelta(days=days)
 
 
+def _parse_report_date(title_text: str) -> str:
+    """
+    Extract the date string from a WTA report title link.
+
+    Title format: "Trail Name — Month DD, YYYY"
+    Returns the date portion as a string, e.g. "Feb. 12, 2026".
+    """
+    if "—" in title_text:
+        return title_text.split("—", 1)[1].strip()
+    return title_text.strip()
+
+
+def _parse_date_dt(date_str: str) -> datetime | None:
+    """Parse a WTA date string into a timezone-aware datetime."""
+    date_str = date_str.strip()
+    for fmt in ("%B %d, %Y", "%b. %d, %Y", "%b %d, %Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(date_str, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
 async def scrape_reports_for_trail(
     page: Page,
     trail_url: str,
@@ -48,106 +71,101 @@ async def scrape_reports_for_trail(
     """
     Scrape trip reports from a single trail's WTA page.
 
-    Returns a list of report dicts. Stops paginating once report dates fall
-    before the cutoff.
+    WTA loads reports into #reports_target on the trail page (5 per page).
+    Pagination uses @@related_tripreport_listing?b_start:int=N URLs.
+    Stops paginating once report dates fall before the cutoff.
     """
-    # WTA trip reports live on the trail page under the #trip-reports anchor
-    reports_url = trail_url.rstrip("/") + "#trip-reports"
     await page.goto(trail_url, wait_until="domcontentloaded")
     await polite_delay()
 
     rows: list[dict[str, Any]] = []
     page_num = 0
-    current_url = trail_url
 
     while True:
-        # Wait for report items to appear (or proceed if none present)
-        try:
-            await page.wait_for_selector(".trip-report-list-item, .trip-report", timeout=5000)
-        except Exception:
-            break  # no reports on this page
+        # Wait for report items — retry once on timeout to handle slow loads
+        loaded = False
+        for attempt in range(2):
+            try:
+                await page.wait_for_selector("#trip-reports .item", timeout=12000)
+                loaded = True
+                break
+            except Exception:
+                if attempt == 0:
+                    print(f"    page {page_num + 1}: slow load, waiting and retrying…")
+                    await polite_delay(3.0, 6.0)
 
-        report_els = page.locator(".trip-report-list-item, .trip-report")
+        if not loaded:
+            print(f"    page {page_num + 1}: timed out waiting for reports — stopping pagination")
+            break
+
+        report_els = page.locator("#trip-reports .item")
         count = await report_els.count()
         if count == 0:
             break
+
+        print(f"    page {page_num + 1}: {count} report(s)")
 
         past_cutoff = False
         for i in range(count):
             el = report_els.nth(i)
 
-            # Report date
-            date_el = el.locator("time, .report-date, .date")
-            report_date_raw = ""
-            if await date_el.count():
-                report_date_raw = (
-                    await date_el.first.get_attribute("datetime")
-                    or await date_el.first.text_content()
-                    or ""
-                ).strip()
-
-            # Parse date for cutoff comparison
-            report_dt: datetime | None = None
-            for fmt in ("%Y-%m-%d", "%B %d, %Y", "%b %d, %Y"):
-                try:
-                    report_dt = datetime.strptime(report_date_raw[:10], fmt).replace(tzinfo=timezone.utc)
-                    break
-                except ValueError:
-                    continue
+            # Date: extracted from title link text "Trail Name — Feb. 12, 2026"
+            title_text = (await el.locator(".listitem-title a").first.text_content() or "").strip()
+            report_date_raw = _parse_report_date(title_text)
+            report_dt = _parse_date_dt(report_date_raw)
 
             if report_dt and report_dt < cutoff:
                 past_cutoff = True
-                continue  # skip this report; keep checking in case dates are out of order
+                continue  # keep checking in case page has out-of-order dates
 
-            # Author
-            author_el = el.locator(".report-author, .author, .username")
+            # Author: .wta-icon-headline__text
+            author_el = el.locator(".wta-icon-headline__text")
             author = ""
             if await author_el.count():
                 author = (await author_el.first.text_content() or "").strip()
 
-            # Conditions summary (short label — e.g. "Trail in good condition")
-            conditions_el = el.locator(".report-conditions, .conditions, .trail-conditions")
+            # Conditions: .trail-issues text, strip the "Beware of:" label
+            conditions_el = el.locator(".trail-issues")
             conditions = ""
             if await conditions_el.count():
-                conditions = (await conditions_el.first.text_content() or "").strip()
+                raw = (await conditions_el.first.text_content() or "").strip()
+                # Remove the "Beware of:" prefix if present
+                conditions = raw.replace("Beware of:", "").strip()
 
-            # Snow level
-            snow_el = el.locator(".snow-level, .snow, [class*='snow']")
-            snow_level = ""
-            if await snow_el.count():
-                snow_level = (await snow_el.first.text_content() or "").strip()
-
-            # Report body text
-            body_el = el.locator(".report-text, .report-body, p")
+            # Report body text: full text if present, else excerpt
+            text_el = el.locator(".trip-report-full-text, .trip-report-excerpt")
             text_summary = ""
-            if await body_el.count():
-                text_summary = (await body_el.first.text_content() or "").strip()
+            if await text_el.count():
+                text_summary = (await text_el.first.text_content() or "").strip()
 
             rows.append({
                 "trail_url": trail_url,
                 "report_date": report_date_raw,
                 "author": author,
                 "conditions": conditions,
-                "snow_level": snow_level,
+                "snow_level": "",  # WTA does not expose a separate snow field in listings
                 "text_summary": text_summary,
                 "source": "wta",
                 "scraped_at": scraped_at(),
             })
 
         if past_cutoff:
-            break  # all remaining reports are older than cutoff
+            break  # all remaining pages are older than cutoff
 
-        # Pagination within trip reports
-        next_link = page.locator(".pager-next a, a[title='Next']")
-        if await next_link.count():
-            next_href = await next_link.first.get_attribute("href")
-            if next_href:
-                next_full = next_href if next_href.startswith("http") else f"https://www.wta.org{next_href}"
-                await page.goto(next_full, wait_until="domcontentloaded")
-                await polite_delay()
-                page_num += 1
-                continue
-        break
+        # Pagination: "Next N items" link is inside li.next inside nav.pagination
+        # These links go to @@related_tripreport_listing?b_start:int=N
+        next_link = page.locator("#reports_target nav.pagination li.next a")
+        if not await next_link.count():
+            break  # last page
+
+        next_href = await next_link.first.get_attribute("href")
+        if not next_href:
+            break
+
+        next_full = next_href if next_href.startswith("http") else f"https://www.wta.org{next_href}"
+        page_num += 1
+        await pagination_delay(page_num)
+        await page.goto(next_full, wait_until="domcontentloaded")
 
     return rows
 

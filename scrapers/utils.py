@@ -98,7 +98,21 @@ async def verify_auth(page: Page) -> bool:
 # Polite crawl delays
 # ---------------------------------------------------------------------------
 
-async def polite_delay(min_s: float = 1.5, max_s: float = 3.5) -> None:
+async def polite_delay(min_s: float = 2.0, max_s: float = 5.0) -> None:
     """Sleep for a random interval to avoid hammering the server."""
     delay = random.uniform(min_s, max_s)
+    await asyncio.sleep(delay)
+
+
+async def pagination_delay(page_num: int) -> None:
+    """
+    Delay between paginated requests.
+
+    Uses a longer base range than polite_delay to avoid bot detection during
+    sustained crawls. Every 10 pages takes an extra longer pause to mimic a
+    human reader slowing down.
+    """
+    delay = random.uniform(4.0, 9.0)
+    if page_num > 0 and page_num % 10 == 0:
+        delay += random.uniform(8.0, 15.0)
     await asyncio.sleep(delay)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summer Hiking Series 2026</title>
+    <title>Summer Hiking Series - Weekend Options</title>
     <style>
         * {
             margin: 0;
@@ -11,317 +11,441 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-purple: #7c3aed;
+            --primary-green: #10b981;
+            --dark-purple: #5b21b6;
+            --light-purple: #ede9fe;
+            --light-green: #d1fae5;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f3f0ff 0%, #f0fdf4 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 20px;
             text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
         }
 
-        header h1 {
-            font-size: 2.5em;
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-purple);
             margin-bottom: 10px;
             font-weight: 700;
         }
 
-        header p {
-            font-size: 1.1em;
-            opacity: 0.95;
-        }
-
-        .content {
-            padding: 30px 20px;
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
         }
 
         .controls {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 20px;
             flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .control-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        select, input[type="text"] {
-            padding: 10px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        select:focus, input[type="text"]:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        button {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            justify-content: center;
             margin-bottom: 30px;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-card h3 {
-            font-size: 2em;
-            margin-bottom: 5px;
-        }
-
-        .stat-card p {
-            opacity: 0.95;
-        }
-
-        .tabs {
+        .filter-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 15px 20px;
-            cursor: pointer;
+        .filter-group label {
             font-weight: 600;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            color: var(--text-dark);
         }
 
-        .tab-button.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+        .filter-button {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        .tab-button:hover {
-            color: #667eea;
+        .filter-button:hover {
+            border-color: var(--primary-purple);
+            color: var(--primary-purple);
         }
 
-        .tab-content {
+        .filter-button.active {
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+        }
+
+        .filter-button.active.season-green {
+            background: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .reset-button {
+            padding: 8px 16px;
+            background: var(--text-light);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .reset-button:hover {
+            background: var(--text-dark);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .weekend-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            opacity: 1;
+            max-height: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .weekend-card:hover {
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-purple);
+            transform: translateY(-2px);
+        }
+
+        .weekend-card.hidden {
             display: none;
         }
 
-        .tab-content.active {
-            display: block;
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th {
-            background: #f5f5f5;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-            color: #555;
-        }
-
-        tr:hover {
-            background: #f9f9f9;
-        }
-
-        .difficulty {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.85em;
-        }
-
-        .difficulty.easy {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .difficulty.moderate {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .difficulty.hard {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .links-cell {
+        .week-info {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .link-btn {
-            padding: 6px 12px;
-            font-size: 0.85em;
-            text-decoration: none;
-            border-radius: 4px;
-            display: inline-block;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .wta-link {
-            background: #d4e4f7;
-            color: #1c5c8f;
-        }
-
-        .wta-link:hover {
-            background: #a8d0f0;
-        }
-
-        .alltrails-link {
-            background: #e8f5e9;
-            color: #1b5e20;
-        }
-
-        .alltrails-link:hover {
-            background: #c8e6c9;
-        }
-
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .calendar-item {
-            background: #f9f9f9;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            transition: all 0.3s;
-        }
-
-        .calendar-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-        }
-
-        .calendar-item-date {
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 8px;
-        }
-
-        .calendar-item-trail {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .calendar-item-location {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .calendar-item-distance {
-            font-size: 0.85em;
-            color: #999;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .no-results h2 {
+            justify-content: space-between;
+            align-items: start;
             margin-bottom: 10px;
         }
 
+        .week-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .week-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .season-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .season-badge.spring {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .season-badge.summer {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .season-badge.fall {
+            background: rgba(255, 127, 39, 0.2);
+            color: #ff7f27;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .option-header {
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb;
+            font-weight: 600;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .option-header:hover {
+            background: #f3f4f6;
+        }
+
+        .option-item.expanded .option-header {
+            background: var(--light-purple);
+            color: var(--primary-purple);
+        }
+
+        .option-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .difficulty-badge.easy {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .difficulty-badge.moderate {
+            background: #fef08a;
+            color: #78350f;
+        }
+
+        .difficulty-badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .toggle-icon {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .option-item.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .option-details {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .option-item.expanded .option-details {
+            display: block;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            width: 100px;
+        }
+
+        .detail-value {
+            color: var(--text-light);
+            flex: 1;
+            text-align: right;
+        }
+
+        .feature-text {
+            margin: 15px 0;
+            padding: 12px;
+            background: var(--light-purple);
+            border-left: 4px solid var(--primary-purple);
+            border-radius: 4px;
+            color: var(--text-dark);
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .link-button {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .link-button.wta {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .link-button.wta:hover {
+            background: #059669;
+        }
+
+        .link-button.alltrails {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .link-button.alltrails:hover {
+            background: var(--dark-purple);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
             }
 
             .controls {
                 flex-direction: column;
             }
 
-            .control-group {
+            .filter-group {
                 width: 100%;
             }
 
-            select, input[type="text"], button {
-                width: 100%;
+            .option-title {
+                font-size: 0.85rem;
             }
 
-            table {
-                font-size: 0.9em;
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
             }
 
-            th, td {
-                padding: 8px;
+            .detail-label {
+                width: auto;
             }
 
-            .calendar {
-                grid-template-columns: 1fr;
+            .detail-value {
+                text-align: left;
+            }
+
+            .links {
+                flex-direction: column;
+            }
+
+            .link-button {
+                min-width: auto;
             }
         }
     </style>
@@ -329,323 +453,366 @@
 <body>
     <div class="container">
         <header>
-            <h1>🏔️ Summer Hiking Series 2026</h1>
-            <p>52 weeks of amazing Washington hiking adventures</p>
+            <h1>🏔️ Summer Hiking Series</h1>
+            <p class="subtitle">Explore 40 weekends of curated hiking options across all skill levels</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">40</div>
+                    <div class="stat-label">Weekend Options</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">Unique Trails</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3-4</div>
+                    <div class="stat-label">Choices Per Weekend</div>
+                </div>
+            </div>
         </header>
 
-        <div class="content">
-            <!-- Stats Section -->
-            <div class="stats" id="stats-container"></div>
-
-            <!-- Controls -->
-            <div class="controls">
-                <div class="control-group">
-                    <label for="seasonFilter">Season:</label>
-                    <select id="seasonFilter">
-                        <option value="">All Seasons</option>
-                        <option value="spring">Spring</option>
-                        <option value="summer">Summer</option>
-                        <option value="fall">Fall</option>
-                    </select>
-                </div>
-
-                <div class="control-group">
-                    <label for="difficultyFilter">Difficulty:</label>
-                    <select id="difficultyFilter">
-                        <option value="">All Difficulties</option>
-                        <option value="easy">Easy</option>
-                        <option value="moderate">Moderate</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
-
-                <div class="control-group">
-                    <label for="searchInput">Search Trail:</label>
-                    <input type="text" id="searchInput" placeholder="Trail name or location...">
-                </div>
-
-                <button onclick="resetFilters()">Reset Filters</button>
+        <div class="controls">
+            <div class="filter-group">
+                <label>Season:</label>
+                <button class="filter-button active" data-filter="season" data-value="all">All</button>
+                <button class="filter-button" data-filter="season" data-value="spring">Spring</button>
+                <button class="filter-button" data-filter="season" data-value="summer">Summer</button>
+                <button class="filter-button" data-filter="season" data-value="fall">Fall</button>
             </div>
 
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab-button active" onclick="switchTab('table')">Table View</button>
-                <button class="tab-button" onclick="switchTab('calendar')">Calendar View</button>
+            <div class="filter-group">
+                <label>Difficulty:</label>
+                <button class="filter-button active" data-filter="difficulty" data-value="all">All</button>
+                <button class="filter-button" data-filter="difficulty" data-value="easy">Easy</button>
+                <button class="filter-button" data-filter="difficulty" data-value="moderate">Moderate</button>
+                <button class="filter-button" data-filter="difficulty" data-value="hard">Hard</button>
             </div>
 
-            <!-- Table Tab -->
-            <div id="table" class="tab-content active">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Week</th>
-                            <th>Date</th>
-                            <th>Trail Name</th>
-                            <th>Location</th>
-                            <th>Distance</th>
-                            <th>Elevation</th>
-                            <th>Difficulty</th>
-                            <th>Links</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
-                </table>
-            </div>
+            <button class="reset-button" id="resetBtn">Reset Filters</button>
+        </div>
 
-            <!-- Calendar Tab -->
-            <div id="calendar" class="tab-content">
-                <div class="calendar" id="calendarContainer">
-                </div>
-            </div>
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Cards will be generated here -->
         </div>
     </div>
 
     <script>
-        // Embedded master schedule data
-        const masterSchedule = [
-            {week: 1, date: '2026-03-21', season: 'spring', trail_name: 'Green Lake Loop', location: 'Seattle', distance_miles: 2.8, elevation_gain_ft: 50, difficulty: 'easy', drive_time_min: 15, best_start_time: 'morning', overnight_town: '', highlight: 'Ease into the season with cherry blossoms and waterfowl'},
-            {week: 2, date: '2026-03-28', season: 'spring', trail_name: 'Snoqualmie Falls', location: 'Snoqualmie', distance_miles: 1.4, elevation_gain_ft: 100, difficulty: 'easy', drive_time_min: 40, best_start_time: 'anytime', overnight_town: '', highlight: 'Iconic 268-foot waterfall at peak spring flow'},
-            {week: 3, date: '2026-04-04', season: 'spring', trail_name: 'Twin Falls', location: 'North Bend', distance_miles: 2.4, elevation_gain_ft: 500, difficulty: 'easy/moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Spring waterfall at peak flow through mossy forest'},
-            {week: 4, date: '2026-04-11', season: 'spring', trail_name: 'Coal Creek Falls', location: 'Issaquah', distance_miles: 2.2, elevation_gain_ft: 475, difficulty: 'moderate', drive_time_min: 25, best_start_time: 'early morning', overnight_town: '', highlight: '28-foot waterfall best seen after spring rain'},
-            {week: 5, date: '2026-04-18', season: 'spring', trail_name: 'Little Si', location: 'North Bend', distance_miles: 3.7, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Snoqualmie Valley views with spring wildflowers'},
-            {week: 6, date: '2026-04-25', season: 'spring', trail_name: 'Rattlesnake Ledge', location: 'North Bend', distance_miles: 4.0, elevation_gain_ft: 1160, difficulty: 'moderate', drive_time_min: 40, best_start_time: 'early morning', overnight_town: '', highlight: 'Dramatic lake and Cascade views from the ledge'},
-            {week: 7, date: '2026-05-02', season: 'spring', trail_name: 'Franklin Falls', location: 'Snoqualmie Pass', distance_miles: 2.0, elevation_gain_ft: 400, difficulty: 'easy', drive_time_min: 50, best_start_time: 'mid morning', overnight_town: '', highlight: 'Misty 70-foot waterfall through old growth forest'},
-            {week: 8, date: '2026-05-09', season: 'spring', trail_name: 'Poo Poo Point', location: 'Issaquah', distance_miles: 4.0, elevation_gain_ft: 1650, difficulty: 'moderate', drive_time_min: 30, best_start_time: 'early morning', overnight_town: '', highlight: 'Paraglider launch with spring wildflowers and ferns'},
-            {week: 9, date: '2026-05-16', season: 'spring', trail_name: 'Teneriffe Falls', location: 'North Bend', distance_miles: 5.6, elevation_gain_ft: 1585, difficulty: 'moderate', drive_time_min: 45, best_start_time: 'early morning', overnight_town: '', highlight: 'Full-volume waterfall via 22 switchbacks'},
-            {week: 10, date: '2026-05-23', season: 'spring', trail_name: 'Wallace Falls', location: 'Gold Bar', distance_miles: 5.6, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Nine waterfalls including three-tiered main cascade at peak snowmelt'},
-            {week: 11, date: '2026-05-30', season: 'spring', trail_name: 'Lake 22', location: 'Granite Falls', distance_miles: 5.4, elevation_gain_ft: 1350, difficulty: 'moderate', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'First alpine lake of the season with waterfall views'},
-            {week: 12, date: '2026-06-06', season: 'spring', trail_name: 'Lake Serene and Bridal Veil Falls', location: 'Stevens Pass', distance_miles: 8.2, elevation_gain_ft: 2000, difficulty: 'moderate/hard', drive_time_min: 70, best_start_time: 'very early', overnight_town: '', highlight: 'Dramatic waterfall and alpine lake combo with Mt Index views'},
-            {week: 13, date: '2026-06-13', season: 'spring', trail_name: 'Heather Lake', location: 'Granite Falls', distance_miles: 4.4, elevation_gain_ft: 1204, difficulty: 'moderate', drive_time_min: 70, best_start_time: 'early morning', overnight_town: '', highlight: 'Subalpine lake with spring skunk cabbage blooms'},
-            {week: 14, date: '2026-06-20', season: 'summer', trail_name: 'Snow Lake', location: 'Snoqualmie Pass', distance_miles: 7.2, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'very early', overnight_town: '', highlight: 'Most popular alpine lake in Washington now snow-free'},
-            {week: 15, date: '2026-06-27', season: 'summer', trail_name: 'Annette Lake', location: 'Snoqualmie Pass', distance_miles: 7.5, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Alpine lake with wildflower meadows and waterfalls'},
-            {week: 16, date: '2026-07-04', season: 'summer', trail_name: 'Naches Peak Loop', location: 'Mt Rainier / Chinook Pass', distance_miles: 3.5, elevation_gain_ft: 600, difficulty: 'easy', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Enumclaw', highlight: 'Holiday weekend alpine loop with Mt Rainier views'},
-            {week: 17, date: '2026-07-11', season: 'summer', trail_name: 'Melakwa Lake', location: 'Snoqualmie Pass', distance_miles: 8.5, elevation_gain_ft: 2700, difficulty: 'hard', drive_time_min: 60, best_start_time: 'very early', overnight_town: '', highlight: 'Teal alpine lake past Denny Creek waterslide'},
-            {week: 18, date: '2026-07-18', season: 'summer', trail_name: 'Skyline Trail Loop', location: 'Mt Rainier / Paradise', distance_miles: 5.5, elevation_gain_ft: 1600, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Ashford', highlight: 'Peak wildflower meadows and glacier views at Paradise'},
-            {week: 19, date: '2026-07-25', season: 'summer', trail_name: 'Yellow Aster Butte', location: 'Mt Baker Wilderness', distance_miles: 7.5, elevation_gain_ft: 2550, difficulty: 'hard', drive_time_min: 120, best_start_time: 'very early', overnight_town: 'Bellingham', highlight: '360-degree views with peak lupine and paintbrush meadows'},
-            {week: 20, date: '2026-08-01', season: 'summer', trail_name: 'Spray Park', location: 'Mt Rainier / Mowich Lake', distance_miles: 8.0, elevation_gain_ft: 1700, difficulty: 'moderate/hard', drive_time_min: 120, best_start_time: 'early morning', overnight_town: 'Ashford', highlight: 'Alpine meadow waterfalls on the quiet side of Rainier'},
-            {week: 21, date: '2026-08-08', season: 'summer', trail_name: 'Colchuck Lake', location: 'Alpine Lakes / Leavenworth', distance_miles: 8.0, elevation_gain_ft: 2280, difficulty: 'moderate/hard', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Gateway to the Enchantments with turquoise water'},
-            {week: 22, date: '2026-08-15', season: 'summer', trail_name: 'Lake Ann', location: 'Mt Baker Scenic Highway', distance_miles: 8.7, elevation_gain_ft: 2047, difficulty: 'hard', drive_time_min: 135, best_start_time: 'very early', overnight_town: 'Bellingham', highlight: 'Close-up views of Mt Shuksan with alpine meadow blooms'},
-            {week: 23, date: '2026-08-22', season: 'summer', trail_name: 'Blue Lake', location: 'North Cascades / Hwy 20', distance_miles: 4.4, elevation_gain_ft: 1050, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Turquoise alpine lake under granite peaks'},
-            {week: 24, date: '2026-08-29', season: 'summer', trail_name: 'Mount Pilchuck', location: 'Mountain Loop Highway', distance_miles: 5.4, elevation_gain_ft: 2200, difficulty: 'moderate/hard', drive_time_min: 60, best_start_time: 'early morning', overnight_town: '', highlight: 'Historic fire lookout with Baker and Rainier views'},
-            {week: 25, date: '2026-09-05', season: 'summer', trail_name: 'Glacier Basin', location: 'Mt Rainier / Sunrise', distance_miles: 7.0, elevation_gain_ft: 1700, difficulty: 'moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Enumclaw', highlight: 'Labor Day weekend at Emmons Glacier viewpoint'},
-            {week: 26, date: '2026-09-12', season: 'summer', trail_name: 'West Tiger 3', location: 'Issaquah', distance_miles: 6.2, elevation_gain_ft: 2000, difficulty: 'moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Panoramic Seattle and Rainier views from Tiger Mountain'},
-            {week: 27, date: '2026-09-19', season: 'summer', trail_name: 'Mirror Lake', location: 'Snoqualmie Pass', distance_miles: 3.0, elevation_gain_ft: 700, difficulty: 'moderate', drive_time_min: 55, best_start_time: 'early morning', overnight_town: '', highlight: 'Quiet alpine lake as summer winds down'},
-            {week: 28, date: '2026-09-26', season: 'fall', trail_name: 'Cutthroat Lake', location: 'North Cascades / Hwy 20', distance_miles: 3.8, elevation_gain_ft: 400, difficulty: 'easy/moderate', drive_time_min: 150, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Easiest larch hike in Washington at peak gold'},
-            {week: 29, date: '2026-10-03', season: 'fall', trail_name: 'Lake Ingalls', location: 'Alpine Lakes / Teanaway', distance_miles: 9.0, elevation_gain_ft: 2500, difficulty: 'hard', drive_time_min: 170, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Iconic larch basin with Mt Stuart views'},
-            {week: 30, date: '2026-10-10', season: 'fall', trail_name: 'Colchuck Lake', location: 'Alpine Lakes / Leavenworth', distance_miles: 8.0, elevation_gain_ft: 2280, difficulty: 'moderate/hard', drive_time_min: 150, best_start_time: 'very early', overnight_town: 'Leavenworth', highlight: 'Dragontail Peak framed by golden larches'},
-            {week: 31, date: '2026-10-17', season: 'fall', trail_name: 'Blue Lake', location: 'North Cascades / Hwy 20', distance_miles: 4.4, elevation_gain_ft: 1050, difficulty: 'moderate', drive_time_min: 180, best_start_time: 'early morning', overnight_town: 'Winthrop', highlight: 'Golden larch forest reflected in crystal blue water'},
-            {week: 32, date: '2026-10-24', season: 'fall', trail_name: 'Snow Lake', location: 'Snoqualmie Pass', distance_miles: 7.2, elevation_gain_ft: 1800, difficulty: 'moderate/hard', drive_time_min: 50, best_start_time: 'early morning', overnight_town: '', highlight: 'Vine maple reds and berry bush color along the trail'},
-            {week: 33, date: '2026-10-31', season: 'fall', trail_name: 'Rattlesnake Ledge', location: 'North Bend', distance_miles: 4.0, elevation_gain_ft: 1160, difficulty: 'moderate', drive_time_min: 40, best_start_time: 'early morning', overnight_town: '', highlight: 'Fall foliage over Cedar River Watershed'},
-            {week: 34, date: '2026-11-07', season: 'fall', trail_name: 'Wallace Falls', location: 'Gold Bar', distance_miles: 5.6, elevation_gain_ft: 1300, difficulty: 'moderate', drive_time_min: 75, best_start_time: 'early morning', overnight_town: '', highlight: 'Fall rains bring the nine waterfalls to full power'},
-            {week: 35, date: '2026-11-14', season: 'fall', trail_name: 'Twin Falls', location: 'North Bend', distance_miles: 2.4, elevation_gain_ft: 500, difficulty: 'easy/moderate', drive_time_min: 35, best_start_time: 'early morning', overnight_town: '', highlight: 'Moody autumn forest with peak waterfall flow'},
-            {week: 36, date: '2026-11-21', season: 'fall', trail_name: 'Snoqualmie Falls', location: 'Snoqualmie', distance_miles: 1.4, elevation_gain_ft: 100, difficulty: 'easy', drive_time_min: 40, best_start_time: 'anytime', overnight_town: '', highlight: 'Thanksgiving week stroll at the thundering falls'},
-            {week: 37, date: '2026-11-28', season: 'fall', trail_name: 'Coal Creek Falls', location: 'Issaquah', distance_miles: 2.2, elevation_gain_ft: 475, difficulty: 'moderate', drive_time_min: 25, best_start_time: 'early morning', overnight_town: '', highlight: 'Post-rain waterfall in mushroom-rich forest'},
-            {week: 38, date: '2026-12-05', season: 'fall', trail_name: 'Goat Lake', location: 'Mountain Loop Highway', distance_miles: 10.4, elevation_gain_ft: 1400, difficulty: 'moderate/hard', drive_time_min: 75, best_start_time: 'early morning', overnight_town: '', highlight: 'Late fall color along Elliot Creek valley'},
-            {week: 39, date: '2026-12-12', season: 'fall', trail_name: 'Franklin Falls', location: 'Snoqualmie Pass', distance_miles: 2.0, elevation_gain_ft: 400, difficulty: 'easy', drive_time_min: 50, best_start_time: 'mid morning', overnight_town: '', highlight: 'Winter waterfall through snow-dusted forest'},
-            {week: 40, date: '2026-12-19', season: 'fall', trail_name: 'Rattlesnake Lake', location: 'North Bend', distance_miles: 1.3, elevation_gain_ft: 32, difficulty: 'easy', drive_time_min: 40, best_start_time: 'morning', overnight_town: '', highlight: 'Winter solstice eve lakeside walk to close the season'}
+        // Embedded hiking data
+        const hikingData = [
+            {"week":1,"date":"2026-03-21","season":"spring","option_type":"easy","trail_name":"Green Lake Loop","location":"Seattle","distance_miles":2.8,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":15,"interesting_feature":"Cherry blossoms line the lake in late March - wheelchair accessible paved loop with waterfowl viewing","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/green-lake-loop-trail"},
+            {"week":1,"date":"2026-03-21","season":"spring","option_type":"moderate","trail_name":"Discovery Park Loop","location":"Seattle","distance_miles":2.8,"elevation_gain_ft":140,"difficulty":"easy/moderate","drive_time_min":20,"interesting_feature":"Seattle's largest park with Puget Sound views and Olympic Mountain backdrop - lighthouse trail option","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/discovery-park-loop-trail"},
+            {"week":1,"date":"2026-03-21","season":"spring","option_type":"hard","trail_name":"Twin Falls","location":"North Bend","distance_miles":2.4,"elevation_gain_ft":500,"difficulty":"easy/moderate","drive_time_min":35,"interesting_feature":"Trio of cascades pumping hard with spring runoff through mossy old-growth forest","wta_url":"https://www.wta.org/go-hiking/hikes/twin-falls-state-park","alltrails_url":"https://www.alltrails.com/trail/us/washington/twin-falls-trail"},
+            {"week":2,"date":"2026-03-28","season":"spring","option_type":"easy","trail_name":"Snoqualmie Falls","location":"Snoqualmie","distance_miles":1.4,"elevation_gain_ft":100,"difficulty":"easy","drive_time_min":40,"interesting_feature":"268-foot iconic waterfall at peak spring flow - paved viewpoints and historic observation deck","wta_url":"https://www.wta.org/go-hiking/hikes/snoqualmie-falls","alltrails_url":""},
+            {"week":2,"date":"2026-03-28","season":"spring","option_type":"moderate","trail_name":"Coal Creek Falls","location":"Issaquah","distance_miles":2.2,"elevation_gain_ft":475,"difficulty":"moderate","drive_time_min":25,"interesting_feature":"Hidden 28-foot waterfall on Cougar Mountain that runs dry by summer - excellent mushroom spotting","wta_url":"https://www.wta.org/go-hiking/hikes/coal-creek-falls","alltrails_url":""},
+            {"week":2,"date":"2026-03-28","season":"spring","option_type":"hard","trail_name":"Little Si","location":"North Bend","distance_miles":3.7,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":35,"interesting_feature":"Rocky summit bluff with Snoqualmie Valley views - has Boulder Garden Loop option for scrambling","wta_url":"https://www.wta.org/go-hiking/hikes/little-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/little-si-trail"},
+            {"week":3,"date":"2026-04-04","season":"spring","option_type":"easy","trail_name":"Gold Creek Pond","location":"Snoqualmie Pass","distance_miles":1.0,"elevation_gain_ft":100,"difficulty":"easy","drive_time_min":55,"interesting_feature":"Flat stroller-accessible loop around scenic pond with mountain reflections - perfect for families","wta_url":"","alltrails_url":""},
+            {"week":3,"date":"2026-04-04","season":"spring","option_type":"moderate","trail_name":"Franklin Falls","location":"Snoqualmie Pass","distance_miles":2.0,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":50,"interesting_feature":"Misty 70-foot waterfall through old-growth forest you can feel misting your face","wta_url":"https://www.wta.org/go-hiking/hikes/franklin-falls","alltrails_url":""},
+            {"week":3,"date":"2026-04-04","season":"spring","option_type":"hard","trail_name":"Rattlesnake Ledge","location":"North Bend","distance_miles":4.0,"elevation_gain_ft":1160,"difficulty":"moderate","drive_time_min":40,"interesting_feature":"Dramatic cliff-edge ledge overlooking Rattlesnake Lake with Mt. Si and Mt. Washington views","wta_url":"https://www.wta.org/go-hiking/hikes/rattlesnake-ledge","alltrails_url":"https://www.alltrails.com/trail/us/washington/rattlesnake-ledge"},
+            {"week":4,"date":"2026-04-11","season":"spring","option_type":"easy","trail_name":"Ravenna Park Loop","location":"Seattle","distance_miles":2.0,"elevation_gain_ft":100,"difficulty":"easy","drive_time_min":10,"interesting_feature":"Lush urban forest with Ravenna Creek flowing through glacial canyon","wta_url":"","alltrails_url":""},
+            {"week":4,"date":"2026-04-11","season":"spring","option_type":"moderate","trail_name":"Tiger Mountain Tradition Lake","location":"Issaquah","distance_miles":1.5,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":30,"interesting_feature":"Flat forest loop around beautiful lake - excellent fauna viewing and mushroom foraging","wta_url":"","alltrails_url":""},
+            {"week":4,"date":"2026-04-11","season":"spring","option_type":"hard","trail_name":"Poo Poo Point","location":"Issaquah","distance_miles":3.8,"elevation_gain_ft":1650,"difficulty":"moderate","drive_time_min":30,"interesting_feature":"Paraglider launch point - watch gliders launch while eating lunch with Seattle and Mt. Rainier views","wta_url":"https://www.wta.org/go-hiking/hikes/poo-poo-point","alltrails_url":"https://www.alltrails.com/trail/us/washington/chirico-trail-to-poo-poo-point--2"},
+            {"week":5,"date":"2026-04-18","season":"spring","option_type":"easy","trail_name":"Burke-Gilman Trail","location":"Seattle to Bothell","distance_miles":5.0,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":15,"interesting_feature":"Paved rail-trail along Lake Washington - multiple access points and cafes along the route","wta_url":"","alltrails_url":""},
+            {"week":5,"date":"2026-04-18","season":"spring","option_type":"moderate","trail_name":"Boulder River Trail","location":"Darrington","distance_miles":2.5,"elevation_gain_ft":200,"difficulty":"easy/moderate","drive_time_min":90,"interesting_feature":"Gorgeous forest walk along turquoise glacial river - incredibly photogenic","wta_url":"","alltrails_url":""},
+            {"week":5,"date":"2026-04-18","season":"spring","option_type":"hard","trail_name":"Teneriffe Falls","location":"North Bend","distance_miles":5.6,"elevation_gain_ft":1585,"difficulty":"moderate","drive_time_min":45,"interesting_feature":"Twenty-two switchbacks to waterfall at full spring volume - final 0.9 miles gains 850 feet","wta_url":"https://www.wta.org/go-hiking/hikes/teneriffe-falls","alltrails_url":""},
+            {"week":6,"date":"2026-04-25","season":"spring","option_type":"easy","trail_name":"Saint Edward Seminary","location":"Kenmore","distance_miles":0.5,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":25,"interesting_feature":"Lake Washington shoreline walk past historic seminary buildings - very accessible","wta_url":"","alltrails_url":""},
+            {"week":6,"date":"2026-04-25","season":"spring","option_type":"moderate","trail_name":"Oxbow Loop Trail","location":"Middle Fork Snoqualmie","distance_miles":2.0,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":50,"interesting_feature":"Family-friendly flat riverside walk through old-growth forest with river views","wta_url":"","alltrails_url":""},
+            {"week":6,"date":"2026-04-25","season":"spring","option_type":"hard","trail_name":"Wallace Falls","location":"Gold Bar","distance_miles":5.6,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Nine waterfalls total including spectacular three-tiered 265-foot main cascade at peak flow","wta_url":"https://www.wta.org/go-hiking/hikes/wallace-falls","alltrails_url":""},
+            {"week":7,"date":"2026-05-02","season":"spring","option_type":"easy","trail_name":"Union Bay Natural Area","location":"Seattle","distance_miles":2.0,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":15,"interesting_feature":"Wetlands and woodlands urban nature escape - excellent birdwatching","wta_url":"","alltrails_url":""},
+            {"week":7,"date":"2026-05-02","season":"spring","option_type":"moderate","trail_name":"Ebey's Landing","location":"Whidbey Island","distance_miles":3.0,"elevation_gain_ft":200,"difficulty":"easy/moderate","drive_time_min":90,"interesting_feature":"Panoramic Puget Sound views with beach access and historic prairie - wildflower displays","wta_url":"","alltrails_url":""},
+            {"week":7,"date":"2026-05-02","season":"spring","option_type":"hard","trail_name":"Dirty Harry's Balcony","location":"Snoqualmie Pass","distance_miles":4.4,"elevation_gain_ft":1600,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Dramatic cliff-edge overlook with Snoqualmie Valley views - steep but short","wta_url":"","alltrails_url":""},
+            {"week":8,"date":"2026-05-09","season":"spring","option_type":"easy","trail_name":"Mount Catherine","location":"North Bend","distance_miles":3.0,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":45,"interesting_feature":"Short but steep summit with panoramic Mt. Rainier views - worth the effort","wta_url":"","alltrails_url":""},
+            {"week":8,"date":"2026-05-09","season":"spring","option_type":"moderate","trail_name":"Talapus Lake","location":"Snoqualmie Pass","distance_miles":4.0,"elevation_gain_ft":800,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Calm subalpine lake through cool forest - good family destination","wta_url":"","alltrails_url":""},
+            {"week":8,"date":"2026-05-09","season":"spring","option_type":"hard","trail_name":"Bandera Mountain","location":"Snoqualmie Pass","distance_miles":8.0,"elevation_gain_ft":3400,"difficulty":"hard","drive_time_min":55,"interesting_feature":"Steep inclines to alpine meadows with panoramic Cascade views - serious workout","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/bandera-mountain"},
+            {"week":9,"date":"2026-05-16","season":"spring","option_type":"easy","trail_name":"Denny Creek Slide","location":"Snoqualmie Pass","distance_miles":2.0,"elevation_gain_ft":300,"difficulty":"easy","drive_time_min":60,"interesting_feature":"Natural waterslide for kids - bring swimsuits and towels for splashing fun","wta_url":"","alltrails_url":""},
+            {"week":9,"date":"2026-05-16","season":"spring","option_type":"moderate","trail_name":"Talapus and Olallie Lakes","location":"Snoqualmie Pass","distance_miles":5.8,"elevation_gain_ft":1223,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Two subalpine lakes on one trail - peaceful forest walk","wta_url":"https://www.wta.org/go-hiking/hikes/talapus-and-olallie-lakes","alltrails_url":"https://www.alltrails.com/trail/us/washington/talapus-and-olallie-lakes-via-olallie-lake-trail--5"},
+            {"week":9,"date":"2026-05-16","season":"spring","option_type":"hard","trail_name":"Mailbox Peak (new trail)","location":"Snoqualmie Pass","distance_miles":11.2,"elevation_gain_ft":4100,"difficulty":"hard","drive_time_min":55,"interesting_feature":"Extremely steep - 4000 feet gain - historic mailbox at summit for leaving notes","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/mailbox-peak-trail"},
+            {"week":10,"date":"2026-05-23","season":"spring","option_type":"easy","trail_name":"Wallace Falls Lower Viewpoint","location":"Gold Bar","distance_miles":2.0,"elevation_gain_ft":500,"difficulty":"easy","drive_time_min":60,"interesting_feature":"Short walk to Lower Falls viewpoint - great for families wanting waterfall experience","wta_url":"","alltrails_url":""},
+            {"week":10,"date":"2026-05-23","season":"spring","option_type":"moderate","trail_name":"Denny Creek to Keekwulee Falls","location":"Snoqualmie Pass","distance_miles":4.0,"elevation_gain_ft":600,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"125-foot waterfall with natural waterslide section - bring water shoes","wta_url":"https://www.wta.org/go-hiking/hikes/keekwulee-falls","alltrails_url":"https://www.alltrails.com/trail/us/washington/keekwulee-falls-via-denny-creek-trail"},
+            {"week":10,"date":"2026-05-23","season":"spring","option_type":"hard","trail_name":"Mount Si","location":"North Bend","distance_miles":8.1,"elevation_gain_ft":3150,"difficulty":"hard","drive_time_min":40,"interesting_feature":"Classic Seattle hike with relentless grade - Haystack summit has sweeping Snoqualmie Valley views","wta_url":"https://www.wta.org/go-hiking/hikes/mount-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/mount-si-trail"},
+            {"week":11,"date":"2026-05-30","season":"spring","option_type":"easy","trail_name":"Mirror Lake","location":"Snoqualmie Pass","distance_miles":3.0,"elevation_gain_ft":700,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Quiet alpine basin emerging from snow - wildflower fields beginning","wta_url":"https://www.wta.org/go-hiking/hikes/mirror-lake-and-cottonwood-lakes","alltrails_url":""},
+            {"week":11,"date":"2026-05-30","season":"spring","option_type":"moderate","trail_name":"Lake 22","location":"Granite Falls","distance_miles":5.4,"elevation_gain_ft":1350,"difficulty":"moderate","drive_time_min":70,"interesting_feature":"First major alpine lake of the season with waterfall views - sitting at base of Mt. Pilchuck","wta_url":"https://www.wta.org/go-hiking/hikes/lake-twenty-two","alltrails_url":"https://www.alltrails.com/trail/us/washington/lake-22-trail"},
+            {"week":11,"date":"2026-05-30","season":"spring","option_type":"hard","trail_name":"Granite Mountain","location":"Snoqualmie Pass","distance_miles":8.1,"elevation_gain_ft":4000,"difficulty":"hard","drive_time_min":55,"interesting_feature":"Nearly 1000 ft/mile climb to historic fire lookout cabin with Mt. Rainier panoramas","wta_url":"https://www.wta.org/go-hiking/hikes/granite-mountain","alltrails_url":""},
+            {"week":12,"date":"2026-06-06","season":"spring","option_type":"easy","trail_name":"Heather Lake","location":"Granite Falls","distance_miles":4.4,"elevation_gain_ft":1204,"difficulty":"moderate","drive_time_min":70,"interesting_feature":"Subalpine lake with skunk cabbage blooms and Mt. Pilchuck backdrop","wta_url":"https://www.wta.org/go-hiking/hikes/heather-lake-1","alltrails_url":""},
+            {"week":12,"date":"2026-06-06","season":"spring","option_type":"moderate","trail_name":"Annette Lake","location":"Snoqualmie Pass","distance_miles":7.5,"elevation_gain_ft":1800,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Alpine lake with wildflower meadows and waterfall along the trail - good swimming","wta_url":"https://www.wta.org/go-hiking/hikes/annette-lake","alltrails_url":""},
+            {"week":12,"date":"2026-06-06","season":"spring","option_type":"hard","trail_name":"Lake Serene & Bridal Veil Falls","location":"Stevens Pass","distance_miles":8.2,"elevation_gain_ft":2000,"difficulty":"hard","drive_time_min":70,"interesting_feature":"Dramatic waterfall and alpine lake beneath 3000-foot Mt. Index cliff face - spectacular combo","wta_url":"https://www.wta.org/go-hiking/hikes/lake-serene","alltrails_url":"https://www.alltrails.com/trail/us/washington/bridal-veil-falls-and-lake-serene"},
+            {"week":13,"date":"2026-06-13","season":"spring","option_type":"easy","trail_name":"Bench and Snow Lake","location":"Mt Rainier","distance_miles":2.7,"elevation_gain_ft":750,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Two subalpine lakes with wildflower fields - easier Mt. Rainier option","wta_url":"","alltrails_url":""},
+            {"week":13,"date":"2026-06-13","season":"spring","option_type":"moderate","trail_name":"Comet Falls","location":"Mt Rainier","distance_miles":3.8,"elevation_gain_ft":1400,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"320-foot waterfall (tallest in the park) through forest walk with steady climb","wta_url":"","alltrails_url":""},
+            {"week":13,"date":"2026-06-13","season":"spring","option_type":"hard","trail_name":"Snow Lake","location":"Snoqualmie Pass","distance_miles":7.2,"elevation_gain_ft":1800,"difficulty":"hard","drive_time_min":60,"interesting_feature":"Most popular alpine lake in Washington - crystal teal water surrounded by jagged peaks","wta_url":"https://www.wta.org/go-hiking/hikes/snow-lake-1","alltrails_url":"https://www.alltrails.com/trail/us/washington/snow-lake-trail"},
+            {"week":14,"date":"2026-06-20","season":"summer","option_type":"easy","trail_name":"Naches Peak Loop","location":"Mt Rainier","distance_miles":3.5,"elevation_gain_ft":600,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Gentle alpine loop with face-to-face Mt. Rainier views through wildflower meadows","wta_url":"https://www.wta.org/go-hiking/hikes/naches-peak","alltrails_url":""},
+            {"week":14,"date":"2026-06-20","season":"summer","option_type":"moderate","trail_name":"Tolmie Peak","location":"Mt Rainier","distance_miles":5.6,"elevation_gain_ft":1600,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Alpine lakes and historic lookout tower with stunning Mt. Rainier views","wta_url":"","alltrails_url":""},
+            {"week":14,"date":"2026-06-20","season":"summer","option_type":"hard","trail_name":"Skyline Loop","location":"Mt Rainier Paradise","distance_miles":5.5,"elevation_gain_ft":1600,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Peak wildflower meadows and glacier views at Paradise - arrive before 8 AM on weekends","wta_url":"https://www.wta.org/go-hiking/hikes/skyline-trail","alltrails_url":""},
+            {"week":15,"date":"2026-06-27","season":"summer","option_type":"easy","trail_name":"Sourdough Ridge","location":"Mt Rainier","distance_miles":3.0,"elevation_gain_ft":500,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Panoramic park views from subalpine meadows - moderate terrain","wta_url":"","alltrails_url":""},
+            {"week":15,"date":"2026-06-27","season":"summer","option_type":"moderate","trail_name":"Spray Park","location":"Mt Rainier","distance_miles":8.0,"elevation_gain_ft":1700,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Alpine meadow waterfalls on quiet side of Rainier - unpaved road to trailhead","wta_url":"https://www.wta.org/go-hiking/hikes/spray-park","alltrails_url":""},
+            {"week":15,"date":"2026-06-27","season":"summer","option_type":"hard","trail_name":"Melakwa Lake","location":"Snoqualmie Pass","distance_miles":8.5,"elevation_gain_ft":2700,"difficulty":"hard","drive_time_min":60,"interesting_feature":"Teal alpine lake past Denny Creek waterslide - steepest I-90 hike at 2700 ft gain","wta_url":"https://www.wta.org/go-hiking/hikes/melakwa-lake","alltrails_url":""},
+            {"week":16,"date":"2026-07-04","season":"summer","option_type":"easy","trail_name":"Chain Lakes (short loop)","location":"Mt Baker","distance_miles":4.0,"elevation_gain_ft":700,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Alpine lakes and sub-alpine meadows with Mt. Baker views - family-friendly option","wta_url":"https://www.wta.org/go-hiking/hikes/chain-lakes-3","alltrails_url":""},
+            {"week":16,"date":"2026-07-04","season":"summer","option_type":"moderate","trail_name":"Chain Lakes Loop","location":"Mt Baker","distance_miles":6.0,"elevation_gain_ft":1700,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Multiple alpine lakes including Mazama and Iceberg with Baker and Shuksan views","wta_url":"https://www.wta.org/go-hiking/hikes/chain-lakes-3","alltrails_url":""},
+            {"week":16,"date":"2026-07-04","season":"summer","option_type":"hard","trail_name":"Sahale Arm","location":"North Cascades","distance_miles":12.0,"elevation_gain_ft":4150,"difficulty":"hard","drive_time_min":180,"interesting_feature":"Cascade Pass plus Sahale Glacier views - technical inclines over loose rock and gravel","wta_url":"","alltrails_url":""},
+            {"week":17,"date":"2026-07-11","season":"summer","option_type":"easy","trail_name":"Artist Point","location":"Mt Baker","distance_miles":1.0,"elevation_gain_ft":200,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Paved accessible trail to dramatic viewpoint of Mt. Baker and Mt. Shuksan - peak wildflowers","wta_url":"","alltrails_url":""},
+            {"week":17,"date":"2026-07-11","season":"summer","option_type":"moderate","trail_name":"Margaret Lake","location":"Snoqualmie Pass","distance_miles":6.0,"elevation_gain_ft":1500,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Alpine Lakes Wilderness forest walk with switchbacks to quiet mountain lake","wta_url":"","alltrails_url":""},
+            {"week":17,"date":"2026-07-11","season":"summer","option_type":"hard","trail_name":"Colchuck Lake","location":"Leavenworth","distance_miles":8.0,"elevation_gain_ft":2280,"difficulty":"hard","drive_time_min":150,"interesting_feature":"Gateway to the Enchantments - turquoise water beneath Dragontail and Colchuck peaks","wta_url":"https://www.wta.org/go-hiking/hikes/colchuck-lake","alltrails_url":"https://www.alltrails.com/trail/us/washington/colchuck-lake-trail"},
+            {"week":18,"date":"2026-07-18","season":"summer","option_type":"easy","trail_name":"Plummer Peak","location":"Mt Rainier","distance_miles":2.2,"elevation_gain_ft":1700,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Short but steep with high alpine subalpine flowers - dramatic for minimal distance","wta_url":"","alltrails_url":""},
+            {"week":18,"date":"2026-07-18","season":"summer","option_type":"moderate","trail_name":"Hidden Lake Lookout","location":"North Cascades","distance_miles":9.0,"elevation_gain_ft":3400,"difficulty":"hard","drive_time_min":180,"interesting_feature":"Historic 1931 fire tower with high alpine meadows and panoramic peak views","wta_url":"","alltrails_url":""},
+            {"week":18,"date":"2026-07-18","season":"summer","option_type":"hard","trail_name":"Mount Pilchuck","location":"Mountain Loop Hwy","distance_miles":5.4,"elevation_gain_ft":2200,"difficulty":"hard","drive_time_min":70,"interesting_feature":"Summit fire lookout with views of all 5 volcanoes - relatively short and close to Seattle","wta_url":"https://www.wta.org/go-hiking/hikes/mount-pilchuck","alltrails_url":"https://www.alltrails.com/trail/us/washington/mount-pilchuck-trail"},
+            {"week":19,"date":"2026-07-25","season":"summer","option_type":"easy","trail_name":"Heather-Maple Pass","location":"North Cascades","distance_miles":7.2,"elevation_gain_ft":2000,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Endless mountain peaks and alpine lake views with spectacular vistas","wta_url":"","alltrails_url":""},
+            {"week":19,"date":"2026-07-25","season":"summer","option_type":"moderate","trail_name":"Lake Ann (Baker)","location":"Mt Baker","distance_miles":8.7,"elevation_gain_ft":2047,"difficulty":"hard","drive_time_min":150,"interesting_feature":"Close-up Mt. Shuksan west face and glacier views - alpine meadows bloom through August","wta_url":"https://www.wta.org/go-hiking/hikes/lake-ann","alltrails_url":""},
+            {"week":19,"date":"2026-07-25","season":"summer","option_type":"hard","trail_name":"Yellow Aster Butte","location":"Mt Baker","distance_miles":7.5,"elevation_gain_ft":2550,"difficulty":"hard","drive_time_min":150,"interesting_feature":"Spectacular wildflower display - lupine and paintbrush carpet meadows with 360 views","wta_url":"https://www.wta.org/go-hiking/hikes/yellow-aster-butte","alltrails_url":""},
+            {"week":20,"date":"2026-08-01","season":"summer","option_type":"easy","trail_name":"Blue Lake (short)","location":"North Cascades","distance_miles":4.4,"elevation_gain_ft":1050,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Turquoise alpine lake at 6254 feet under Liberty Bell granite spires","wta_url":"https://www.wta.org/go-hiking/hikes/blue-lake","alltrails_url":""},
+            {"week":20,"date":"2026-08-01","season":"summer","option_type":"moderate","trail_name":"Thornton Lakes","location":"North Cascades","distance_miles":10.4,"elevation_gain_ft":2300,"difficulty":"hard","drive_time_min":180,"interesting_feature":"Rugged terrain with glacier views - less crowded and dramatic alpine setting","wta_url":"","alltrails_url":""},
+            {"week":20,"date":"2026-08-01","season":"summer","option_type":"hard","trail_name":"Cascade Pass","location":"North Cascades","distance_miles":7.2,"elevation_gain_ft":2000,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Alpine mountain pass with panoramic Cascades views and meadows - classic North Cascades hike","wta_url":"","alltrails_url":""},
+            {"week":21,"date":"2026-08-08","season":"summer","option_type":"easy","trail_name":"Wallace Lake","location":"Gold Bar","distance_miles":9.5,"elevation_gain_ft":1500,"difficulty":"moderate","drive_time_min":75,"interesting_feature":"Extends Wallace Falls hike to quiet alpine lake - longer adventure option","wta_url":"","alltrails_url":""},
+            {"week":21,"date":"2026-08-08","season":"summer","option_type":"moderate","trail_name":"West Tiger 3","location":"Issaquah","distance_miles":6.2,"elevation_gain_ft":2000,"difficulty":"moderate","drive_time_min":35,"interesting_feature":"Panoramic Seattle and Mt. Rainier views from Tiger Mountain summit","wta_url":"https://www.wta.org/go-hiking/hikes/west-tiger-3","alltrails_url":""},
+            {"week":21,"date":"2026-08-08","season":"summer","option_type":"hard","trail_name":"Hannegan Peak","location":"North Cascades","distance_miles":11.0,"elevation_gain_ft":3100,"difficulty":"hard","drive_time_min":180,"interesting_feature":"Very steep final miles to alpine meadows with Baker and Shuksan glacier views","wta_url":"","alltrails_url":""},
+            {"week":22,"date":"2026-08-15","season":"summer","option_type":"easy","trail_name":"Cutthroat Lake","location":"North Cascades","distance_miles":3.8,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":180,"interesting_feature":"Easiest alpine lake in North Cascades - gentle walk to forested lake basin","wta_url":"https://www.wta.org/go-hiking/hikes/cutthroat-lake","alltrails_url":""},
+            {"week":22,"date":"2026-08-15","season":"summer","option_type":"moderate","trail_name":"Glacier Basin","location":"Mt Rainier","distance_miles":7.0,"elevation_gain_ft":1700,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Emmons Glacier viewpoint with marmots and late-season alpine wildflowers","wta_url":"https://www.wta.org/go-hiking/hikes/glacier-basin","alltrails_url":""},
+            {"week":22,"date":"2026-08-15","season":"summer","option_type":"hard","trail_name":"The Enchantments Core","location":"Leavenworth","distance_miles":12.0,"elevation_gain_ft":4500,"difficulty":"hard","drive_time_min":150,"interesting_feature":"Glacier-carved terrain with soft tundra meadows and dramatic granite formations - permit required for overnight","wta_url":"","alltrails_url":""},
+            {"week":23,"date":"2026-08-22","season":"summer","option_type":"easy","trail_name":"Snoqualmie Valley Trail","location":"North Bend","distance_miles":9.4,"elevation_gain_ft":577,"difficulty":"easy","drive_time_min":40,"interesting_feature":"Packed gravel path with Mt. Si views - excellent for fitness hiking or biking","wta_url":"","alltrails_url":""},
+            {"week":23,"date":"2026-08-22","season":"summer","option_type":"moderate","trail_name":"Mount Pilchuck","location":"Mountain Loop Hwy","distance_miles":5.4,"elevation_gain_ft":2200,"difficulty":"hard","drive_time_min":70,"interesting_feature":"Repeat option - fire lookout with five-volcano views and shorter approach","wta_url":"https://www.wta.org/go-hiking/hikes/mount-pilchuck","alltrails_url":"https://www.alltrails.com/trail/us/washington/mount-pilchuck-trail"},
+            {"week":23,"date":"2026-08-22","season":"summer","option_type":"hard","trail_name":"Snoqualmie Mountain","location":"North Bend","distance_miles":3.3,"elevation_gain_ft":3116,"difficulty":"hard","drive_time_min":45,"interesting_feature":"Steep all the way with rocky and slippery sections - technical summit scramble","wta_url":"","alltrails_url":""},
+            {"week":24,"date":"2026-08-29","season":"summer","option_type":"easy","trail_name":"Lake Twenty-Two","location":"Granite Falls","distance_miles":5.4,"elevation_gain_ft":1350,"difficulty":"moderate","drive_time_min":70,"interesting_feature":"Late-season visit to popular alpine lake - fewer crowds than earlier in summer","wta_url":"https://www.wta.org/go-hiking/hikes/lake-twenty-two","alltrails_url":"https://www.alltrails.com/trail/us/washington/lake-22-trail"},
+            {"week":24,"date":"2026-08-29","season":"summer","option_type":"moderate","trail_name":"Talapus and Olallie Lakes","location":"Snoqualmie Pass","distance_miles":5.8,"elevation_gain_ft":1223,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Two peaceful subalpine lakes as summer winds down","wta_url":"https://www.wta.org/go-hiking/hikes/talapus-and-olallie-lakes","alltrails_url":"https://www.alltrails.com/trail/us/washington/talapus-and-olallie-lakes-via-olallie-lake-trail--5"},
+            {"week":24,"date":"2026-08-29","season":"summer","option_type":"hard","trail_name":"Mount Si","location":"North Bend","distance_miles":8.1,"elevation_gain_ft":3150,"difficulty":"hard","drive_time_min":40,"interesting_feature":"Late summer repeat with less crowded trails - classic Seattle challenge","wta_url":"https://www.wta.org/go-hiking/hikes/mount-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/mount-si-trail"},
+            {"week":25,"date":"2026-09-05","season":"summer","option_type":"easy","trail_name":"Bench and Snow Lake","location":"Mt Rainier","distance_miles":2.7,"elevation_gain_ft":750,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Labor Day easy option with two subalpine lakes and wildflowers","wta_url":"","alltrails_url":""},
+            {"week":25,"date":"2026-09-05","season":"summer","option_type":"moderate","trail_name":"Naches Peak Loop","location":"Mt Rainier","distance_miles":3.5,"elevation_gain_ft":600,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Repeat from July with different late-season wildflowers and fewer crowds","wta_url":"https://www.wta.org/go-hiking/hikes/naches-peak","alltrails_url":""},
+            {"week":25,"date":"2026-09-05","season":"summer","option_type":"hard","trail_name":"Skyline Trail Loop","location":"Mt Rainier","distance_miles":5.5,"elevation_gain_ft":1600,"difficulty":"moderate","drive_time_min":150,"interesting_feature":"Labor Day at Paradise with late-summer alpine conditions","wta_url":"https://www.wta.org/go-hiking/hikes/skyline-trail","alltrails_url":""},
+            {"week":26,"date":"2026-09-12","season":"summer","option_type":"easy","trail_name":"Mirror Lake","location":"Snoqualmie Pass","distance_miles":3.0,"elevation_gain_ft":700,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Quiet end-of-summer visit with peaceful reflection views","wta_url":"https://www.wta.org/go-hiking/hikes/mirror-lake-and-cottonwood-lakes","alltrails_url":""},
+            {"week":26,"date":"2026-09-12","season":"summer","option_type":"moderate","trail_name":"Annette Lake","location":"Snoqualmie Pass","distance_miles":7.5,"elevation_gain_ft":1800,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Late-season alpine lake with changing colors beginning","wta_url":"https://www.wta.org/go-hiking/hikes/annette-lake","alltrails_url":""},
+            {"week":26,"date":"2026-09-12","season":"summer","option_type":"hard","trail_name":"Snow Lake","location":"Snoqualmie Pass","distance_miles":7.2,"elevation_gain_ft":1800,"difficulty":"hard","drive_time_min":60,"interesting_feature":"Pre-larch visit with early fall colors appearing","wta_url":"https://www.wta.org/go-hiking/hikes/snow-lake-1","alltrails_url":"https://www.alltrails.com/trail/us/washington/snow-lake-trail"},
+            {"week":27,"date":"2026-09-19","season":"summer","option_type":"easy","trail_name":"Franklin Falls","location":"Snoqualmie Pass","distance_miles":2.0,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":50,"interesting_feature":"End of summer waterfall walk - still flowing well","wta_url":"https://www.wta.org/go-hiking/hikes/franklin-falls","alltrails_url":""},
+            {"week":27,"date":"2026-09-19","season":"summer","option_type":"moderate","trail_name":"Heather Lake","location":"Granite Falls","distance_miles":4.4,"elevation_gain_ft":1204,"difficulty":"moderate","drive_time_min":70,"interesting_feature":"Late-season mountain lake with early fall colors","wta_url":"https://www.wta.org/go-hiking/hikes/heather-lake-1","alltrails_url":""},
+            {"week":27,"date":"2026-09-19","season":"summer","option_type":"hard","trail_name":"Bandera Mountain","location":"Snoqualmie Pass","distance_miles":8.0,"elevation_gain_ft":3400,"difficulty":"hard","drive_time_min":55,"interesting_feature":"Alpine meadows beginning to turn gold - panoramic Cascade views","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/bandera-mountain"},
+            {"week":28,"date":"2026-09-26","season":"fall","option_type":"easy","trail_name":"Cutthroat Lake","location":"North Cascades","distance_miles":3.8,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":180,"interesting_feature":"Easiest larch hike - gentle walk to lake ringed by larches just starting to turn","wta_url":"https://www.wta.org/go-hiking/hikes/cutthroat-lake","alltrails_url":""},
+            {"week":28,"date":"2026-09-26","season":"fall","option_type":"moderate","trail_name":"Blue Lake","location":"North Cascades","distance_miles":4.4,"elevation_gain_ft":1050,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Turquoise lake with early larch gold under granite spires","wta_url":"https://www.wta.org/go-hiking/hikes/blue-lake","alltrails_url":""},
+            {"week":28,"date":"2026-09-26","season":"fall","option_type":"hard","trail_name":"Maple Pass Loop","location":"North Cascades","distance_miles":7.2,"elevation_gain_ft":2000,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Alpine larch and subalpine larch beginning to turn with endless peak views","wta_url":"","alltrails_url":""},
+            {"week":29,"date":"2026-10-03","season":"fall","option_type":"easy","trail_name":"Icicle Gorge","location":"Leavenworth","distance_miles":4.0,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Flat riverside walk with larch views and glacial blue water - great family larch option","wta_url":"","alltrails_url":""},
+            {"week":29,"date":"2026-10-03","season":"fall","option_type":"moderate","trail_name":"Colchuck Lake","location":"Leavenworth","distance_miles":8.0,"elevation_gain_ft":2280,"difficulty":"hard","drive_time_min":150,"interesting_feature":"Peak larch viewing - Dragontail Peak above turquoise water framed by golden larches","wta_url":"https://www.wta.org/go-hiking/hikes/colchuck-lake","alltrails_url":"https://www.alltrails.com/trail/us/washington/colchuck-lake-trail"},
+            {"week":29,"date":"2026-10-03","season":"fall","option_type":"hard","trail_name":"Lake Ingalls","location":"Teanaway","distance_miles":9.0,"elevation_gain_ft":2500,"difficulty":"hard","drive_time_min":170,"interesting_feature":"Iconic larch basin - 2500 ft climb to golden larches with Mt. Stuart and goats","wta_url":"https://www.wta.org/go-hiking/hikes/lake-ingalls","alltrails_url":"https://www.alltrails.com/trail/us/washington/lake-ingalls"},
+            {"week":30,"date":"2026-10-10","season":"fall","option_type":"easy","trail_name":"Enchantments Viewpoint","location":"Leavenworth","distance_miles":2.0,"elevation_gain_ft":300,"difficulty":"easy","drive_time_min":150,"interesting_feature":"Short walk to larch viewing area without the full Colchuck climb - perfect for families","wta_url":"","alltrails_url":""},
+            {"week":30,"date":"2026-10-10","season":"fall","option_type":"moderate","trail_name":"Blue Lake","location":"North Cascades","distance_miles":4.4,"elevation_gain_ft":1050,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Peak larch week - golden forest reflected in crystal blue water","wta_url":"https://www.wta.org/go-hiking/hikes/blue-lake","alltrails_url":""},
+            {"week":30,"date":"2026-10-10","season":"fall","option_type":"hard","trail_name":"Enchantments Thru-hike","location":"Leavenworth","distance_miles":18.0,"elevation_gain_ft":5000,"difficulty":"very hard","drive_time_min":150,"interesting_feature":"Full larch march through Enchantments core zone - extremely challenging day hike","wta_url":"","alltrails_url":""},
+            {"week":31,"date":"2026-10-17","season":"fall","option_type":"easy","trail_name":"Maple Pass (short)","location":"North Cascades","distance_miles":3.0,"elevation_gain_ft":800,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Partial loop option to see larches without full loop commitment","wta_url":"","alltrails_url":""},
+            {"week":31,"date":"2026-10-17","season":"fall","option_type":"moderate","trail_name":"Heather-Maple Pass Loop","location":"North Cascades","distance_miles":7.2,"elevation_gain_ft":2000,"difficulty":"moderate","drive_time_min":180,"interesting_feature":"Full loop with larch displays and alpine lake views - spectacular fall colors","wta_url":"","alltrails_url":""},
+            {"week":31,"date":"2026-10-17","season":"fall","option_type":"hard","trail_name":"Lake Ingalls (repeat)","location":"Teanaway","distance_miles":9.0,"elevation_gain_ft":2500,"difficulty":"hard","drive_time_min":170,"interesting_feature":"Second larch weekend option for those who missed week 29 or want repeat experience","wta_url":"https://www.wta.org/go-hiking/hikes/lake-ingalls","alltrails_url":"https://www.alltrails.com/trail/us/washington/lake-ingalls"},
+            {"week":32,"date":"2026-10-24","season":"fall","option_type":"easy","trail_name":"Rattlesnake Lake Loop","location":"North Bend","distance_miles":1.3,"elevation_gain_ft":32,"difficulty":"easy","drive_time_min":40,"interesting_feature":"Flat lakeside walk with fall foliage reflections - end of larch season pivot to lower elevation","wta_url":"","alltrails_url":""},
+            {"week":32,"date":"2026-10-24","season":"fall","option_type":"moderate","trail_name":"Rattlesnake Ledge","location":"North Bend","distance_miles":4.0,"elevation_gain_ft":1160,"difficulty":"moderate","drive_time_min":40,"interesting_feature":"Fall foliage over Cedar River Watershed - maples and alders at peak color","wta_url":"https://www.wta.org/go-hiking/hikes/rattlesnake-ledge","alltrails_url":"https://www.alltrails.com/trail/us/washington/rattlesnake-ledge"},
+            {"week":32,"date":"2026-10-24","season":"fall","option_type":"hard","trail_name":"Snow Lake","location":"Snoqualmie Pass","distance_miles":7.2,"elevation_gain_ft":1800,"difficulty":"hard","drive_time_min":60,"interesting_feature":"Vine maple reds and berry bush colors along alpine lake trail","wta_url":"https://www.wta.org/go-hiking/hikes/snow-lake-1","alltrails_url":"https://www.alltrails.com/trail/us/washington/snow-lake-trail"},
+            {"week":33,"date":"2026-10-31","season":"fall","option_type":"easy","trail_name":"Twin Falls","location":"North Bend","distance_miles":2.4,"elevation_gain_ft":500,"difficulty":"easy","drive_time_min":35,"interesting_feature":"Halloween hike - trio of cascades through moody autumn forest","wta_url":"https://www.wta.org/go-hiking/hikes/twin-falls-state-park","alltrails_url":"https://www.alltrails.com/trail/us/washington/twin-falls-trail"},
+            {"week":33,"date":"2026-10-31","season":"fall","option_type":"moderate","trail_name":"Little Si","location":"North Bend","distance_miles":3.7,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":35,"interesting_feature":"Fall colors on the approach with Boulder Garden for scrambling fun","wta_url":"https://www.wta.org/go-hiking/hikes/little-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/little-si-trail"},
+            {"week":33,"date":"2026-10-31","season":"fall","option_type":"hard","trail_name":"Mount Si","location":"North Bend","distance_miles":8.1,"elevation_gain_ft":3150,"difficulty":"hard","drive_time_min":40,"interesting_feature":"Late fall challenge with dramatic moody lighting and fewer crowds","wta_url":"https://www.wta.org/go-hiking/hikes/mount-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/mount-si-trail"},
+            {"week":34,"date":"2026-11-07","season":"fall","option_type":"easy","trail_name":"Wallace Falls Lower","location":"Gold Bar","distance_miles":2.0,"elevation_gain_ft":500,"difficulty":"easy","drive_time_min":75,"interesting_feature":"Short walk to Lower Falls with peak fall rain flow - family-friendly","wta_url":"","alltrails_url":""},
+            {"week":34,"date":"2026-11-07","season":"fall","option_type":"moderate","trail_name":"Wallace Falls","location":"Gold Bar","distance_miles":5.6,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":75,"interesting_feature":"Nine waterfalls at full power from November rain - spectacular three-tiered cascade","wta_url":"https://www.wta.org/go-hiking/hikes/wallace-falls","alltrails_url":""},
+            {"week":34,"date":"2026-11-07","season":"fall","option_type":"hard","trail_name":"Wallace Lake","location":"Gold Bar","distance_miles":9.5,"elevation_gain_ft":1500,"difficulty":"moderate","drive_time_min":75,"interesting_feature":"Extended waterfall hike to quiet alpine lake - full fall flow on cascades","wta_url":"","alltrails_url":""},
+            {"week":35,"date":"2026-11-14","season":"fall","option_type":"easy","trail_name":"Snoqualmie Falls","location":"Snoqualmie","distance_miles":1.4,"elevation_gain_ft":100,"difficulty":"easy","drive_time_min":40,"interesting_feature":"Moody November waterfall at thundering peak flow - mist rises hundreds of feet","wta_url":"https://www.wta.org/go-hiking/hikes/snoqualmie-falls","alltrails_url":""},
+            {"week":35,"date":"2026-11-14","season":"fall","option_type":"moderate","trail_name":"Coal Creek Falls","location":"Issaquah","distance_miles":2.2,"elevation_gain_ft":475,"difficulty":"moderate","drive_time_min":25,"interesting_feature":"Waterfall flowing again after summer dormancy - mushroom-rich forest floor","wta_url":"https://www.wta.org/go-hiking/hikes/coal-creek-falls","alltrails_url":""},
+            {"week":35,"date":"2026-11-14","season":"fall","option_type":"hard","trail_name":"Teneriffe Falls","location":"North Bend","distance_miles":5.6,"elevation_gain_ft":1585,"difficulty":"moderate","drive_time_min":45,"interesting_feature":"Twenty-two switchbacks to cascading waterfall in late fall conditions","wta_url":"https://www.wta.org/go-hiking/hikes/teneriffe-falls","alltrails_url":""},
+            {"week":36,"date":"2026-11-21","season":"fall","option_type":"easy","trail_name":"Discovery Park","location":"Seattle","distance_miles":2.8,"elevation_gain_ft":140,"difficulty":"easy","drive_time_min":20,"interesting_feature":"Thanksgiving week urban walk with Puget Sound and Olympic views - accessible for visiting family","wta_url":"","alltrails_url":""},
+            {"week":36,"date":"2026-11-21","season":"fall","option_type":"moderate","trail_name":"Poo Poo Point","location":"Issaquah","distance_miles":3.8,"elevation_gain_ft":1650,"difficulty":"moderate","drive_time_min":30,"interesting_feature":"Thanksgiving workout with views - paragliders may still be flying on nice days","wta_url":"https://www.wta.org/go-hiking/hikes/poo-poo-point","alltrails_url":"https://www.alltrails.com/trail/us/washington/chirico-trail-to-poo-poo-point--2"},
+            {"week":36,"date":"2026-11-21","season":"fall","option_type":"hard","trail_name":"Bandera Mountain","location":"Snoqualmie Pass","distance_miles":8.0,"elevation_gain_ft":3400,"difficulty":"hard","drive_time_min":55,"interesting_feature":"Late-season alpine challenge - check conditions before attempting","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/bandera-mountain"},
+            {"week":37,"date":"2026-11-28","season":"fall","option_type":"easy","trail_name":"Green Lake Loop","location":"Seattle","distance_miles":2.8,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":15,"interesting_feature":"Post-Thanksgiving urban stroll - waterfowl and fall leaves","wta_url":"","alltrails_url":"https://www.alltrails.com/trail/us/washington/green-lake-loop-trail"},
+            {"week":37,"date":"2026-11-28","season":"fall","option_type":"moderate","trail_name":"Tiger Mountain Tradition Lake","location":"Issaquah","distance_miles":1.5,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":30,"interesting_feature":"Quiet forest lake walk - mushroom foraging and late fall colors","wta_url":"","alltrails_url":""},
+            {"week":37,"date":"2026-11-28","season":"fall","option_type":"hard","trail_name":"Dirty Harry's Balcony","location":"Snoqualmie Pass","distance_miles":4.4,"elevation_gain_ft":1600,"difficulty":"moderate","drive_time_min":60,"interesting_feature":"Dramatic overlook in late fall conditions - moody lighting and fewer hikers","wta_url":"","alltrails_url":""},
+            {"week":38,"date":"2026-12-05","season":"fall","option_type":"easy","trail_name":"Burke-Gilman Trail","location":"Seattle","distance_miles":5.0,"elevation_gain_ft":50,"difficulty":"easy","drive_time_min":15,"interesting_feature":"Winter solstice approach - flat paved trail perfect for dark December days","wta_url":"","alltrails_url":""},
+            {"week":38,"date":"2026-12-05","season":"fall","option_type":"moderate","trail_name":"Heather Lake","location":"Granite Falls","distance_miles":4.4,"elevation_gain_ft":1204,"difficulty":"moderate","drive_time_min":70,"interesting_feature":"Late-season mountain lake - check road conditions on Mountain Loop Highway","wta_url":"https://www.wta.org/go-hiking/hikes/heather-lake-1","alltrails_url":""},
+            {"week":38,"date":"2026-12-05","season":"fall","option_type":"hard","trail_name":"Goat Lake","location":"Mountain Loop Hwy","distance_miles":10.4,"elevation_gain_ft":1400,"difficulty":"hard","drive_time_min":75,"interesting_feature":"Longest fall hike - dramatic cirque lake with late-season color along Elliot Creek","wta_url":"https://www.wta.org/go-hiking/hikes/goat-lake","alltrails_url":"https://www.alltrails.com/trail/us/washington/goat-lake-trail"},
+            {"week":39,"date":"2026-12-12","season":"fall","option_type":"easy","trail_name":"Franklin Falls","location":"Snoqualmie Pass","distance_miles":2.0,"elevation_gain_ft":400,"difficulty":"easy","drive_time_min":50,"interesting_feature":"Winter waterfall walk - snow may dust the forest and frame the falls","wta_url":"https://www.wta.org/go-hiking/hikes/franklin-falls","alltrails_url":""},
+            {"week":39,"date":"2026-12-12","season":"fall","option_type":"moderate","trail_name":"Gold Creek Pond","location":"Snoqualmie Pass","distance_miles":1.0,"elevation_gain_ft":100,"difficulty":"easy","drive_time_min":55,"interesting_feature":"Winter wonderland flat loop - may have snow for scenic photos","wta_url":"","alltrails_url":""},
+            {"week":39,"date":"2026-12-12","season":"fall","option_type":"hard","trail_name":"Mirror Lake","location":"Snoqualmie Pass","distance_miles":3.0,"elevation_gain_ft":700,"difficulty":"moderate","drive_time_min":55,"interesting_feature":"Winter approach to alpine basin - beautiful with early snow","wta_url":"https://www.wta.org/go-hiking/hikes/mirror-lake-and-cottonwood-lakes","alltrails_url":""},
+            {"week":40,"date":"2026-12-19","season":"fall","option_type":"easy","trail_name":"Rattlesnake Lake","location":"North Bend","distance_miles":1.3,"elevation_gain_ft":32,"difficulty":"easy","drive_time_min":40,"interesting_feature":"Winter solstice eve - flat lakeside walk to close the season","wta_url":"https://www.wta.org/go-hiking/hikes/rattlesnake-lake","alltrails_url":"https://www.alltrails.com/trail/us/washington/rattlesnake-lake-trail"},
+            {"week":40,"date":"2026-12-19","season":"fall","option_type":"moderate","trail_name":"Rattlesnake Ledge","location":"North Bend","distance_miles":4.0,"elevation_gain_ft":1160,"difficulty":"moderate","drive_time_min":40,"interesting_feature":"Final climb of the series - winter views over Cedar River Watershed","wta_url":"https://www.wta.org/go-hiking/hikes/rattlesnake-ledge","alltrails_url":"https://www.alltrails.com/trail/us/washington/rattlesnake-ledge"},
+            {"week":40,"date":"2026-12-19","season":"fall","option_type":"hard","trail_name":"Little Si","location":"North Bend","distance_miles":3.7,"elevation_gain_ft":1300,"difficulty":"moderate","drive_time_min":35,"interesting_feature":"Season-closer summit with winter Snoqualmie Valley views","wta_url":"https://www.wta.org/go-hiking/hikes/little-si","alltrails_url":"https://www.alltrails.com/trail/us/washington/little-si-trail"}
         ];
 
-        // Trail URL mapping from seasonal CSVs
-        const trailUrls = {
-            'Green Lake Loop': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/green-lake-loop-trail'},
-            'Snoqualmie Falls': {wta: 'https://www.wta.org/go-hiking/hikes/snoqualmie-falls', alltrails: ''},
-            'Twin Falls': {wta: 'https://www.wta.org/go-hiking/hikes/twin-falls-state-park', alltrails: 'https://www.alltrails.com/trail/us/washington/twin-falls-trail'},
-            'Coal Creek Falls': {wta: 'https://www.wta.org/go-hiking/hikes/coal-creek-falls', alltrails: ''},
-            'Little Si': {wta: 'https://www.wta.org/go-hiking/hikes/little-si', alltrails: 'https://www.alltrails.com/trail/us/washington/little-si-trail'},
-            'Rattlesnake Ledge': {wta: 'https://www.wta.org/go-hiking/hikes/rattlesnake-ledge', alltrails: 'https://www.alltrails.com/trail/us/washington/rattlesnake-ledge'},
-            'Franklin Falls': {wta: 'https://www.wta.org/go-hiking/hikes/franklin-falls', alltrails: ''},
-            'Poo Poo Point': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/chirico-trail-to-poo-poo-point--2'},
-            'Teneriffe Falls': {wta: 'https://www.wta.org/go-hiking/hikes/teneriffe-falls', alltrails: ''},
-            'Wallace Falls': {wta: 'https://www.wta.org/go-hiking/hikes/wallace-falls', alltrails: ''},
-            'Lake 22': {wta: 'https://www.wta.org/go-hiking/hikes/lake-twenty-two', alltrails: 'https://www.alltrails.com/trail/us/washington/lake-22-trail'},
-            'Lake Serene and Bridal Veil Falls': {wta: 'https://www.wta.org/go-hiking/hikes/lake-serene', alltrails: 'https://www.alltrails.com/trail/us/washington/bridal-veil-falls-and-lake-serene'},
-            'Heather Lake': {wta: 'https://www.wta.org/go-hiking/hikes/heather-lake-1', alltrails: ''},
-            'Snow Lake': {wta: 'https://www.wta.org/go-hiking/hikes/snow-lake-1', alltrails: 'https://www.alltrails.com/trail/us/washington/snow-lake-trail'},
-            'Annette Lake': {wta: 'https://www.wta.org/go-hiking/hikes/annette-lake', alltrails: ''},
-            'Naches Peak Loop': {wta: 'https://www.wta.org/go-hiking/hikes/naches-peak', alltrails: ''},
-            'Melakwa Lake': {wta: 'https://www.wta.org/go-hiking/hikes/melakwa-lake', alltrails: ''},
-            'Skyline Trail Loop': {wta: 'https://www.wta.org/go-hiking/hikes/skyline-trail', alltrails: ''},
-            'Yellow Aster Butte': {wta: 'https://www.wta.org/go-hiking/hikes/yellow-aster-butte', alltrails: ''},
-            'Spray Park': {wta: 'https://www.wta.org/go-hiking/hikes/spray-park', alltrails: ''},
-            'Colchuck Lake': {wta: 'https://www.wta.org/go-hiking/hikes/colchuck-lake', alltrails: 'https://www.alltrails.com/trail/us/washington/colchuck-lake-trail'},
-            'Lake Ann': {wta: 'https://www.wta.org/go-hiking/hikes/lake-ann', alltrails: ''},
-            'Blue Lake': {wta: 'https://www.wta.org/go-hiking/hikes/blue-lake', alltrails: ''},
-            'Mount Pilchuck': {wta: 'https://www.wta.org/go-hiking/hikes/mount-pilchuck', alltrails: 'https://www.alltrails.com/trail/us/washington/mount-pilchuck-trail'},
-            'Glacier Basin': {wta: 'https://www.wta.org/go-hiking/hikes/glacier-basin', alltrails: ''},
-            'West Tiger 3': {wta: 'https://www.wta.org/go-hiking/hikes/west-tiger-3', alltrails: ''},
-            'Mirror Lake': {wta: 'https://www.wta.org/go-hiking/hikes/mirror-lake-and-cottonwood-lakes', alltrails: ''},
-            'Cutthroat Lake': {wta: 'https://www.wta.org/go-hiking/hikes/cutthroat-lake', alltrails: ''},
-            'Lake Ingalls': {wta: 'https://www.wta.org/go-hiking/hikes/lake-ingalls', alltrails: 'https://www.alltrails.com/trail/us/washington/lake-ingalls'},
-            'Goat Lake': {wta: 'https://www.wta.org/go-hiking/hikes/goat-lake', alltrails: 'https://www.alltrails.com/trail/us/washington/goat-lake-trail'},
-            'Rattlesnake Lake': {wta: '', alltrails: 'https://www.alltrails.com/trail/us/washington/rattlesnake-lake-trail'}
+        // State management
+        let currentFilters = {
+            season: 'all',
+            difficulty: 'all'
         };
 
-        let filteredData = [...masterSchedule];
-
-        function getMainDifficulty(difficulty) {
-            if (difficulty.includes('hard')) return 'hard';
-            if (difficulty.includes('moderate')) return 'moderate';
-            return 'easy';
+        // Group data by week
+        function groupByWeek(data) {
+            const grouped = {};
+            data.forEach(row => {
+                if (!grouped[row.week]) {
+                    grouped[row.week] = {
+                        week: row.week,
+                        date: row.date,
+                        season: row.season,
+                        options: []
+                    };
+                }
+                grouped[row.week].options.push(row);
+            });
+            return Object.values(grouped).sort((a, b) => a.week - b.week);
         }
 
-        function formatDifficulty(difficulty) {
-            const main = getMainDifficulty(difficulty);
-            return `<span class="difficulty ${main}">${difficulty}</span>`;
+        // Check if hike matches current filters
+        function matchesFilters(hike) {
+            if (currentFilters.season !== 'all' && hike.season !== currentFilters.season) {
+                return false;
+            }
+            if (currentFilters.difficulty !== 'all') {
+                const hikeDifficulty = hike.difficulty.split('/')[0].toLowerCase();
+                if (hikeDifficulty !== currentFilters.difficulty) {
+                    return false;
+                }
+            }
+            return true;
         }
 
-        function getLinksHtml(trailName) {
-            const urls = trailUrls[trailName] || {wta: '', alltrails: ''};
-            let html = '<div class="links-cell">';
-
-            if (urls.wta) {
-                html += `<a href="${urls.wta}" target="_blank" rel="noopener noreferrer" class="link-btn wta-link">WTA</a>`;
-            }
-            if (urls.alltrails) {
-                html += `<a href="${urls.alltrails}" target="_blank" rel="noopener noreferrer" class="link-btn alltrails-link">AllTrails</a>`;
-            }
-
-            if (!urls.wta && !urls.alltrails) {
-                html += '<span style="color: #999; font-size: 0.85em;">No links</span>';
-            }
-
-            html += '</div>';
-            return html;
+        // Check if weekend should be shown
+        function weekendHasMatchingOption(weekendData) {
+            return weekendData.options.some(option => matchesFilters(option));
         }
 
-        function updateStats() {
-            const seasons = {};
-            const difficulties = {};
-            let totalDistance = 0;
-            let totalElevation = 0;
+        // Create card HTML
+        function createCard(weekendData) {
+            const weekDate = new Date(weekendData.date);
+            const dateStr = weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-            filteredData.forEach(hike => {
-                seasons[hike.season] = (seasons[hike.season] || 0) + 1;
-                const mainDiff = getMainDifficulty(hike.difficulty);
-                difficulties[mainDiff] = (difficulties[mainDiff] || 0) + 1;
-                totalDistance += hike.distance_miles;
-                totalElevation += hike.elevation_gain_ft;
+            const filteredOptions = weekendData.options.filter(opt => matchesFilters(opt));
+
+            if (filteredOptions.length === 0) return '';
+
+            let html = `
+                <div class="weekend-card">
+                    <div class="card-header">
+                        <div class="week-info">
+                            <div>
+                                <div class="week-number">Week ${weekendData.week}</div>
+                                <div class="week-date">${dateStr}</div>
+                            </div>
+                            <span class="season-badge ${weekendData.season}">${weekendData.season.charAt(0).toUpperCase() + weekendData.season.slice(1)}</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="options-container">
+            `;
+
+            filteredOptions.forEach((option, idx) => {
+                const difficultyClass = option.difficulty.split('/')[0].toLowerCase();
+                const difficultyLabel = option.difficulty.charAt(0).toUpperCase() + option.difficulty.slice(1);
+
+                html += `
+                    <div class="option-item" data-trail="${option.trail_name}">
+                        <div class="option-header">
+                            <div class="option-title">
+                                <span>${option.trail_name}</span>
+                                <span class="difficulty-badge ${difficultyClass}">${difficultyLabel}</span>
+                            </div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="option-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Distance</span>
+                                <span class="detail-value">${option.distance_miles} mi</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Elevation</span>
+                                <span class="detail-value">+${option.elevation_gain_ft} ft</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Location</span>
+                                <span class="detail-value">${option.location}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Drive Time</span>
+                                <span class="detail-value">${option.drive_time_min} min</span>
+                            </div>
+                            <div class="feature-text">"${option.interesting_feature}"</div>
+                            <div class="links">
+                `;
+
+                if (option.wta_url) {
+                    html += `<a href="${option.wta_url}" target="_blank" rel="noopener noreferrer" class="link-button wta">WTA</a>`;
+                }
+                if (option.alltrails_url) {
+                    html += `<a href="${option.alltrails_url}" target="_blank" rel="noopener noreferrer" class="link-button alltrails">AllTrails</a>`;
+                }
+
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
 
-            const statsHtml = `
-                <div class="stat-card">
-                    <h3>${filteredData.length}</h3>
-                    <p>Total Hikes</p>
-                </div>
-                <div class="stat-card">
-                    <h3>${totalDistance.toFixed(1)}</h3>
-                    <p>Total Miles</p>
-                </div>
-                <div class="stat-card">
-                    <h3>${(totalElevation / 1000).toFixed(0)}K</h3>
-                    <p>Total Elevation (ft)</p>
-                </div>
-                <div class="stat-card">
-                    <h3>${(totalDistance / filteredData.length).toFixed(1)}</h3>
-                    <p>Avg Miles per Hike</p>
+            html += `
+                        </div>
+                    </div>
                 </div>
             `;
 
-            document.getElementById('stats-container').innerHTML = statsHtml;
+            return html;
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
+        // Render cards
+        function renderCards() {
+            const weekends = groupByWeek(hikingData);
+            const cardsGrid = document.getElementById('cardsGrid');
 
-            if (filteredData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No hikes match your filters</td></tr>';
-                return;
+            let html = '';
+            weekends.forEach(weekend => {
+                if (weekendHasMatchingOption(weekend)) {
+                    html += createCard(weekend);
+                }
+            });
+
+            if (!html) {
+                html = '<div class="no-data">No hikes match your filters. Try adjusting them!</div>';
             }
 
-            filteredData.forEach(hike => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>Week ${hike.week}</strong></td>
-                    <td>${new Date(hike.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</td>
-                    <td><strong>${hike.trail_name}</strong></td>
-                    <td>${hike.location}</td>
-                    <td>${hike.distance_miles} mi</td>
-                    <td>${hike.elevation_gain_ft.toLocaleString()} ft</td>
-                    <td>${formatDifficulty(hike.difficulty)}</td>
-                    <td>${getLinksHtml(hike.trail_name)}</td>
-                `;
-                tbody.appendChild(row);
+            cardsGrid.innerHTML = html;
+            attachEventListeners();
+        }
+
+        // Attach click handlers to expandable items
+        function attachEventListeners() {
+            document.querySelectorAll('.option-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.closest('.option-item');
+                    item.classList.toggle('expanded');
+                });
             });
         }
 
-        function renderCalendar() {
-            const container = document.getElementById('calendarContainer');
-            container.innerHTML = '';
+        // Handle filter button clicks
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const filterType = this.getAttribute('data-filter');
+                const filterValue = this.getAttribute('data-value');
 
-            if (filteredData.length === 0) {
-                container.innerHTML = '<div class="no-results"><h2>No hikes match your filters</h2></div>';
-                return;
-            }
+                // Remove active class from other buttons of same type
+                document.querySelectorAll(`.filter-button[data-filter="${filterType}"]`).forEach(btn => {
+                    btn.classList.remove('active');
+                });
 
-            filteredData.forEach(hike => {
-                const date = new Date(hike.date);
-                const dateStr = date.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+                // Add active class to clicked button
+                this.classList.add('active');
 
-                const item = document.createElement('div');
-                item.className = 'calendar-item';
-                item.innerHTML = `
-                    <div class="calendar-item-date">Week ${hike.week} • ${dateStr}</div>
-                    <div class="calendar-item-trail">${hike.trail_name}</div>
-                    <div class="calendar-item-location">${hike.location}</div>
-                    <div class="calendar-item-distance">${hike.distance_miles} mi • ${hike.elevation_gain_ft.toLocaleString()} ft</div>
-                    <div style="margin-top: 10px;">${getLinksHtml(hike.trail_name)}</div>
-                `;
-                container.appendChild(item);
+                // Update filter state
+                currentFilters[filterType] = filterValue;
+
+                // Re-render cards
+                renderCards();
             });
-        }
+        });
 
-        function applyFilters() {
-            const season = document.getElementById('seasonFilter').value;
-            const difficulty = document.getElementById('difficultyFilter').value;
-            const search = document.getElementById('searchInput').value.toLowerCase();
+        // Reset filters
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            currentFilters = { season: 'all', difficulty: 'all' };
 
-            filteredData = masterSchedule.filter(hike => {
-                const matchesSeason = !season || hike.season === season;
-                const matchesDifficulty = !difficulty || getMainDifficulty(hike.difficulty) === difficulty;
-                const matchesSearch = !search ||
-                    hike.trail_name.toLowerCase().includes(search) ||
-                    hike.location.toLowerCase().includes(search);
-
-                return matchesSeason && matchesDifficulty && matchesSearch;
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                if (btn.getAttribute('data-value') === 'all') {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
 
-            updateStats();
-            renderTable();
-            renderCalendar();
-        }
-
-        function resetFilters() {
-            document.getElementById('seasonFilter').value = '';
-            document.getElementById('difficultyFilter').value = '';
-            document.getElementById('searchInput').value = '';
-            applyFilters();
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Initialize
-        document.getElementById('seasonFilter').addEventListener('change', applyFilters);
-        document.getElementById('difficultyFilter').addEventListener('change', applyFilters);
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
+            renderCards();
+        });
 
         // Initial render
-        applyFilters();
+        renderCards();
     </script>
 </body>
 </html>

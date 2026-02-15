@@ -6,9 +6,10 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 
 ## Phase 1 — Project Skeleton
 
-- [ ] Create directory structure (`scrapers/`, `db/`, `db/migrations/`, `data/raw/`, `data/processed/`, `ui/`, `ui/dist/`)
-- [ ] Add `requirements.txt` with initial deps (requests, beautifulsoup4, lxml)
+- [ ] Create directory structure (`scrapers/`, `db/`, `db/migrations/`, `data/raw/`, `data/processed/`, `ui/`, `ui/templates/`, `ui/dist/`)
+- [ ] Initialise `pyproject.toml` with `uv init` and add initial deps: `requests`, `beautifulsoup4`, `lxml`
 - [ ] Add `.gitignore` entries for `hiking.db`, `data/raw/`, `ui/dist/`, `__pycache__/`, `.venv/`
+- [ ] Verify all scripts can be invoked with `uv run <script>`
 
 ---
 
@@ -81,8 +82,8 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 ## Phase 6 — Housekeeping
 
 - [ ] Update `README.md` to reflect new architecture
-- [ ] Document how to run each module end-to-end
-- [ ] Add a top-level `Makefile` with targets: `scrape`, `import`, `build`, `all`
+- [ ] Document how to run each module end-to-end using `uv run`
+- [ ] Add a top-level `Makefile` with targets: `scrape`, `import`, `build`, `all` (each delegating to `uv run`)
 
 ---
 

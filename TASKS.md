@@ -19,25 +19,26 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 > Scrape real data first so the DB schema is grounded in actual field names and types.
 
 ### 2a. Scraper Shared Utilities
-- [ ] Write `scrapers/utils.py` with shared helpers:
+- [x] Write `scrapers/utils.py` with shared helpers:
   - CSV writer with consistent quoting and encoding
   - Playwright browser/context setup (shared async context, sensible defaults)
   - Polite crawl delays between page loads
   - `scraped_at` timestamp injection
+- [x] Write `scrapers/auth.py` — one-time login script that saves `playwright/.auth/wta.json` for session reuse
 
 ### 2b. WTA Hike Info Scraper
-- [ ] Write `scrapers/wta.py` to scrape trail metadata from WTA
+- [x] Write `scrapers/wta.py` to scrape trail metadata from WTA
   - Output: `data/raw/wta_hikes_<date>.csv`
   - Capture all fields WTA exposes; do not pre-filter — schema is derived from output
-- [ ] Handle rate limiting and polite crawl delays
-- [ ] Add `--trail-url` flag for single-trail scrape during development
+- [x] Handle rate limiting and polite crawl delays
+- [x] Add `--trail-url` flag for single-trail scrape during development
 - [ ] Produce at least one real CSV output file in `data/raw/` before proceeding to Phase 3
 
 ### 2c. WTA Trip Report Scraper
-- [ ] Write `scrapers/wta_reports.py` to scrape recent trip reports per trail
+- [x] Write `scrapers/wta_reports.py` to scrape recent trip reports per trail
   - Output: `data/raw/wta_reports_<date>.csv`
   - Capture all fields WTA exposes; do not pre-filter — schema is derived from output
-- [ ] Limit to reports from the last 60 days by default (`--days` flag to override)
+- [x] Limit to reports from the last 60 days by default (`--days` flag to override)
 - [ ] Produce at least one real CSV output file in `data/raw/` before proceeding to Phase 3
 
 ---

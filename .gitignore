@@ -15,3 +15,6 @@ __pycache__/
 
 # uv
 .python-version
+
+# Playwright auth state (contains session cookies — never commit)
+playwright/.auth/

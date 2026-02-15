@@ -7,7 +7,8 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 ## Phase 1 — Project Skeleton
 
 - [ ] Create directory structure (`scrapers/`, `db/`, `db/migrations/`, `data/raw/`, `data/processed/`, `ui/`, `ui/templates/`, `ui/dist/`)
-- [ ] Initialise `pyproject.toml` with `uv init` and add initial deps: `requests`, `beautifulsoup4`, `lxml`
+- [ ] Initialise `pyproject.toml` with `uv init` and add initial deps: `playwright`
+- [ ] Run `uv run playwright install` to download browser binaries
 - [ ] Add `.gitignore` entries for `hiking.db`, `data/raw/`, `ui/dist/`, `__pycache__/`, `.venv/`
 - [ ] Verify all scripts can be invoked with `uv run <script>`
 
@@ -48,7 +49,8 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cancelled
 ### 3c. Scraper Shared Utilities
 - [ ] Write `scrapers/utils.py` with shared helpers:
   - CSV writer with consistent quoting and encoding
-  - HTTP session with retry logic and user-agent header
+  - Playwright browser/context setup (shared async context, sensible defaults)
+  - Polite crawl delays between page loads
   - `scraped_at` timestamp injection
 
 ---

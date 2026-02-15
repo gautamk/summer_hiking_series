@@ -19,6 +19,8 @@ scrapers/ → CSV files → db/ (SQLite) → ui/ (static HTML)
   - **Hike info**: trail metadata (name, distance, elevation, difficulty, pass, location)
   - **Trip reports**: recent conditions, snow, trail status, user comments
 - Scrapers are independent; each can be run on its own schedule
+- Use **Playwright** (Python) for all scraping — hiking sites actively block simple HTTP clients and headless requests; Playwright renders pages like a real browser and avoids these blocks
+- Do not use `requests`, `beautifulsoup4`, or `lxml` for page fetching — they will be blocked
 
 ### 2. Data Layer (`data/`)
 - `data/raw/` — raw CSV output from scrapers (never edited by hand)
@@ -55,6 +57,7 @@ scrapers/ → CSV files → db/ (SQLite) → ui/ (static HTML)
 - No ORM — raw SQL via `sqlite3` stdlib module
 - Dependencies tracked in `pyproject.toml` (managed by `uv`)
 - Never use `requirements.txt` — `uv` and `pyproject.toml` are the sole dependency source
+- Playwright browsers installed via `uv run playwright install` after initial setup
 
 ## Key Files
 
@@ -98,3 +101,4 @@ scrapers/ → CSV files → db/ (SQLite) → ui/ (static HTML)
 - Do not use `requirements.txt` — use `pyproject.toml` and `uv` exclusively
 - Do not run scripts with bare `python` — always use `uv run <script>`
 - Do not introduce frontend JS frameworks (React, Vue, etc.) — keep UI in plain HTML/CSS/JS
+- Do not use `requests`, `beautifulsoup4`, or `lxml` for scraping — use Playwright

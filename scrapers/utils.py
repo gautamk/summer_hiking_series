@@ -108,11 +108,10 @@ async def pagination_delay(page_num: int) -> None:
     """
     Delay between paginated requests.
 
-    Uses a longer base range than polite_delay to avoid bot detection during
-    sustained crawls. Every 10 pages takes an extra longer pause to mimic a
-    human reader slowing down.
+    Keeps a short base delay between pages. Every 20 pages takes an extra
+    pause to avoid sustained crawl detection.
     """
-    delay = random.uniform(4.0, 9.0)
-    if page_num > 0 and page_num % 10 == 0:
-        delay += random.uniform(8.0, 15.0)
+    delay = random.uniform(1.0, 2.5)
+    if page_num > 0 and page_num % 20 == 0:
+        delay += random.uniform(5.0, 10.0)
     await asyncio.sleep(delay)
